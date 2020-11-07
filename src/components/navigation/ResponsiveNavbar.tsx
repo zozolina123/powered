@@ -21,6 +21,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import TodayIcon from '@material-ui/icons/Today';
 import ViewWeekIcon from '@material-ui/icons/ViewWeek';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Link, useLocation } from 'react-router-dom';
 
 import { useStyles } from './ResponsiveNavBarStyling';
@@ -101,7 +102,9 @@ export default function ResponsiveNavbar(props: { window?: () => Window }) {
                             <IconButton color={location.pathname === RoutesArray[text].route ? 'primary' : 'inherit'}>
                                 {<Icon iconType={text} />}
                             </IconButton>
-                            <ListItemText primary={text} />
+                            <ListItemText>
+                                <FormattedMessage id={text} />
+                            </ListItemText>
                         </ListItem>
                     </Link>
                 ))}
@@ -123,7 +126,9 @@ export default function ResponsiveNavbar(props: { window?: () => Window }) {
                             <IconButton color={location.pathname === RoutesArray[text].route ? 'primary' : 'inherit'}>
                                 {<Icon iconType={text} />}
                             </IconButton>
-                            <ListItemText primary={text} />
+                            <ListItemText>
+                                <FormattedMessage id={text} />
+                            </ListItemText>
                         </ListItem>
                     </Link>
                 ))}
@@ -132,6 +137,7 @@ export default function ResponsiveNavbar(props: { window?: () => Window }) {
     );
 
     const container = window !== undefined ? () => window().document.body : undefined;
+    const titleId = Object.keys(RoutesArray).find((key) => RoutesArray[key].route == location.pathname);
 
     return (
         <div className={classes.root}>
@@ -148,7 +154,7 @@ export default function ResponsiveNavbar(props: { window?: () => Window }) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap>
-                        Responsive drawer
+                        <FormattedMessage id={titleId} />
                     </Typography>
                 </Toolbar>
             </AppBar>
