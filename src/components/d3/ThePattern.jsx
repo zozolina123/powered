@@ -13,8 +13,6 @@ class ThePattern {
         this.margin = { top: 20, left: 30, bottom: 20, right: 30 };
         const date = new Date(Date.now());
         date.setMinutes(0, 0, 0);
-        console.log(date);
-        console.log(new Date(date.getTime() + 24 * 60 * 60 * 1000));
         this.date = date;
     }
 
@@ -72,27 +70,7 @@ class ThePattern {
 
     updateData = (data) => {
         this.data = data;
-        this.circles = this.chart.selectAll('.myCircle').data(this.data);
-        this.circles
-            .enter()
-            .datum(data)
-            .append('path')
-            .attr('fill', 'none')
-            .attr('stroke', 'steelblue')
-            .attr('stroke-width', 1.5)
-            .attr(
-                'd',
-                line()
-                    .x((d, i) => this.xScale(Date.now() + (i - 1) * 60 * 60 * 1000))
-                    .y((d) => this.yScale(d)),
-            );
-        // .append('circle')
-        // .attr('class', 'myCircle')
-        // .attr('r', 10)
-        // .attr('cx', (d, i) => this.xScale(Date.now() + i * 60 * 60 * 1000))
-        // .attr('cy', (d) => this.yScale(d))
-        // .attr('fill', 'green');
-
+        this.updateDims(this.dims);
         this.enter();
     };
 
@@ -102,26 +80,30 @@ class ThePattern {
         this.setDims(dims);
         this.setScales();
         this.updateAxes();
-        this.circles = this.chart.selectAll('.myCircle').data(this.data);
+        this.circles = this.chart.selectAll('.myCircle').data([this.data]);
         this.circles
             .transition()
             .duration(500)
-            .attr('cx', (d, i) => this.xScale(new Date(this.date.getTime() + i * 60 * 60 * 1000).getTime()))
-            .attr('cy', (d) => this.yScale(d));
+            .attr(
+                'd',
+                line()
+                    .x((d, i) => this.xScale(Date.now() + i * 60 * 60 * 1000))
+                    .y((d) => this.yScale(d)),
+            );
     };
 
     enter = () => {
         this.circles
             .enter()
-            .datum(this.data)
             .append('path')
+            .attr('class', 'myCircle')
             .attr('fill', 'none')
             .attr('stroke', 'steelblue')
             .attr('stroke-width', 1.5)
             .attr(
                 'd',
                 line()
-                    .x((d, i) => this.xScale(Date.now() + (i - 1) * 60 * 60 * 1000))
+                    .x((d, i) => this.xScale(Date.now() + i * 60 * 60 * 1000))
                     .y((d) => this.yScale(d)),
             );
         // this.circles

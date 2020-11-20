@@ -29,6 +29,11 @@ function Chart({ dims, data }: Props) {
         vizInitialized && canvas.updateDims(dims);
     }, [dims]);
 
+    useEffect(() => {
+        console.log(data);
+        vizInitialized && canvas.updateData(data);
+    }, [data]);
+
     return <div ref={domNode} style={{ display: 'grid', height: '300px' }} />;
 }
 
