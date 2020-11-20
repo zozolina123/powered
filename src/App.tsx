@@ -5,8 +5,10 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import Home from './components/home/Home';
 import ResponsiveNavbar, { drawerWidth } from './components/navigation/ResponsiveNavbar';
 import Settings from './components/settings/Settings';
+import { DimProvider } from './components/utils/DimContext';
 import IntlProvider from './components/wrappers/IntlWrapper';
 import CustomThemeProvider from './components/wrappers/ThemeWrapper';
 
@@ -29,35 +31,37 @@ const App: React.FC = () => {
     return (
         <IntlProvider>
             <CustomThemeProvider>
-                <Router>
-                    <Helmet titleTemplate="%s | PowerEd" defaultTitle="PowerEd" />
-                    <ResponsiveNavbar />
-                    <main className={classes.content}>
-                        <div className={classes.toolbar} />
-                        <Switch>
-                            <Route path="/about">
-                                <About />
-                            </Route>
-                            <Route path="/settings">
-                                <Settings />
-                            </Route>
-                            <Route path="/">
-                                <Home />
-                            </Route>
-                        </Switch>
-                    </main>
-                </Router>
+                <DimProvider>
+                    <Router>
+                        <Helmet titleTemplate="%s | PowerEd" defaultTitle="PowerEd" />
+                        <ResponsiveNavbar />
+                        <main className={classes.content}>
+                            <div className={classes.toolbar} />
+                            <Switch>
+                                <Route path="/about">
+                                    <About />
+                                </Route>
+                                <Route path="/settings">
+                                    <Settings />
+                                </Route>
+                                <Route path="/">
+                                    <Home />
+                                </Route>
+                            </Switch>
+                        </main>
+                    </Router>
+                </DimProvider>
             </CustomThemeProvider>
         </IntlProvider>
     );
 };
 
-function Home() {
-    return <h2>Home</h2>;
-}
-
 function About() {
-    return <h2>About</h2>;
+    return (
+        <div>
+            <h2>About</h2>
+        </div>
+    );
 }
 
 export default App;

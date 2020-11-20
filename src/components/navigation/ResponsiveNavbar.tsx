@@ -28,7 +28,7 @@ import { useStyles } from './ResponsiveNavBarStyling';
 
 export const drawerWidth = 240;
 
-export default function ResponsiveNavbar(props: { window?: () => Window }) {
+export default function ResponsiveNavbar(props: { window?: () => Window }): React.ReactElement {
     const { window } = props;
     const location = useLocation();
     const classes = useStyles();
@@ -137,7 +137,7 @@ export default function ResponsiveNavbar(props: { window?: () => Window }) {
     );
 
     const container = window !== undefined ? () => window().document.body : undefined;
-    const titleId = Object.keys(RoutesArray).find((key) => RoutesArray[key].route == location.pathname);
+    const titleId = Object.keys(RoutesArray).find((key) => RoutesArray[key].route === location.pathname);
 
     return (
         <div className={classes.root}>

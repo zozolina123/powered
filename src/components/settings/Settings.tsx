@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function Settings(props: any) {
+export default function Settings(): React.ReactElement {
     const classes = useStyles();
     return (
         <div>
