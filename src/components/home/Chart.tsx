@@ -30,7 +30,6 @@ function Chart({ dims, data }: Props) {
     }, [dims]);
 
     useEffect(() => {
-        console.log(data);
         vizInitialized && canvas.updateData(data);
     }, [data]);
 

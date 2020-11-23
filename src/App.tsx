@@ -1,6 +1,8 @@
 import './App.scss';
 
+import DateFnsUtils from '@date-io/date-fns';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -29,30 +31,32 @@ const App: React.FC = () => {
     const classes = useStyles();
 
     return (
-        <IntlProvider>
-            <CustomThemeProvider>
-                <DimProvider>
-                    <Router>
-                        <Helmet titleTemplate="%s | PowerEd" defaultTitle="PowerEd" />
-                        <ResponsiveNavbar />
-                        <main className={classes.content}>
-                            <div className={classes.toolbar} />
-                            <Switch>
-                                <Route path="/about">
-                                    <About />
-                                </Route>
-                                <Route path="/settings">
-                                    <Settings />
-                                </Route>
-                                <Route path="/">
-                                    <Home />
-                                </Route>
-                            </Switch>
-                        </main>
-                    </Router>
-                </DimProvider>
-            </CustomThemeProvider>
-        </IntlProvider>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <IntlProvider>
+                <CustomThemeProvider>
+                    <DimProvider>
+                        <Router>
+                            <Helmet titleTemplate="%s | PowerEd" defaultTitle="PowerEd" />
+                            <ResponsiveNavbar />
+                            <main className={classes.content}>
+                                <div className={classes.toolbar} />
+                                <Switch>
+                                    <Route path="/about">
+                                        <About />
+                                    </Route>
+                                    <Route path="/settings">
+                                        <Settings />
+                                    </Route>
+                                    <Route path="/">
+                                        <Home />
+                                    </Route>
+                                </Switch>
+                            </main>
+                        </Router>
+                    </DimProvider>
+                </CustomThemeProvider>
+            </IntlProvider>
+        </MuiPickersUtilsProvider>
     );
 };
 

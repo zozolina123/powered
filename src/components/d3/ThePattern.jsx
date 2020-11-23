@@ -21,7 +21,6 @@ class ThePattern {
         this.setScales(); //<-------two
         this.chart = this.svg.append('g');
         this.chart.attr('transform', `translate(${this.margin.left}, ${this.margin.top})`);
-        this.chart.append('text').text(`height: ${dims.height}`);
         this.createAxes(); //<-----three
 
         this.updateData(data);
@@ -80,40 +79,50 @@ class ThePattern {
         this.setDims(dims);
         this.setScales();
         this.updateAxes();
-        this.circles = this.chart.selectAll('.myCircle').data([this.data]);
+        this.circles = this.chart.selectAll('.circles').data(this.data);
+        this.lines = this.chart.selectAll('.lines').data([this.data]);
+
         this.circles
+            .transition()
+            .duration(500)
+            .attr('cx', (d, i) => this.xScale(new Date(this.date.getTime() + i * 60 * 60 * 1000)))
+            .attr('cy', (d) => this.yScale(d));
+
+        this.lines
             .transition()
             .duration(500)
             .attr(
                 'd',
                 line()
-                    .x((d, i) => this.xScale(Date.now() + i * 60 * 60 * 1000))
+                    .x((d, i) => this.xScale(new Date(this.date.getTime() + i * 60 * 60 * 1000)))
                     .y((d) => this.yScale(d)),
             );
     };
 
     enter = () => {
-        this.circles
+        this.lines
             .enter()
             .append('path')
-            .attr('class', 'myCircle')
+            .attr('class', 'lines')
             .attr('fill', 'none')
             .attr('stroke', 'steelblue')
             .attr('stroke-width', 1.5)
             .attr(
                 'd',
                 line()
-                    .x((d, i) => this.xScale(Date.now() + i * 60 * 60 * 1000))
+                    .x((d, i) => this.xScale(new Date(this.date.getTime() + i * 60 * 60 * 1000)))
                     .y((d) => this.yScale(d)),
             );
-        // this.circles
-        //     .enter()
-        //     .append('circle')
-        //     .attr('class', 'myCircle')
-        //     .attr('r', 10)
-        //     .attr('cx', (d, i) => this.xScale(i))
-        //     .attr('cy', (d) => this.yScale(d))
-        //     .attr('fill', 'green');
+
+        this.circles
+            .data(this.data)
+            .enter()
+            .append('circle')
+            .attr('class', 'circles')
+            .attr('r', 3)
+            .attr('cx', (d, i) => this.xScale(new Date(this.date.getTime() + i * 60 * 60 * 1000)))
+            .attr('cy', (d) => this.yScale(d))
+            .attr('fill', 'blue');
 
         this.exit();
     };
