@@ -41,3 +41,17 @@
         transform: rotate(360deg);
     }
 }
+
+.tooltip {
+    vertical-align: middle;
+    position: absolute;
+    text-align: center;
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    line-height: 28px;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}

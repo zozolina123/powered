@@ -8,6 +8,8 @@ class ThePattern {
     constructor(domNodeCurrent) {
         this.innerHeight = 0;
         this.innerWidth = 0;
+        this.div = select(domNodeCurrent).append('div').attr('class', 'tooltip').style('opacity', 0);
+
         this.svg = select(domNodeCurrent).append('svg');
         this.svg.attr('width', '100%').attr('height', '100%');
         this.margin = { top: 20, left: 30, bottom: 20, right: 30 };
@@ -119,10 +121,18 @@ class ThePattern {
             .enter()
             .append('circle')
             .attr('class', 'circles')
-            .attr('r', 3)
+            .attr('r', 4)
             .attr('cx', (d, i) => this.xScale(new Date(this.date.getTime() + i * 60 * 60 * 1000)))
             .attr('cy', (d) => this.yScale(d))
-            .attr('fill', 'blue');
+            .attr('fill', 'blue')
+            .on('mouseenter', (event, d, i) => {
+                this.div.transition().duration(200).style('opacity', 0.9);
+                this.div
+                    .html(d)
+                    .style('left', event.pageX + 'px')
+                    .style('top', event.pageY - 28 + 'px');
+            })
+            .on('mouseout', () => this.div.transition().duration(200).style('opacity', 0));
 
         this.exit();
     };
