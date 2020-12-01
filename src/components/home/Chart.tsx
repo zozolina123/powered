@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import ThePattern from '../d3/ThePattern';
+import LineChart from '../d3/LineChart/LineChart';
 import { withContext } from '../utils/DimContext';
 import { DimInterface } from '../utils/UtilIntefaces';
 
@@ -11,11 +11,11 @@ interface Props {
 
 function Chart({ dims, data }: Props) {
     const domNode = useRef(null);
-    const [canvas, createCanvas] = useState({} as ThePattern);
+    const [canvas, createCanvas] = useState({} as LineChart);
     const [vizInitialized, setVizInitialized] = useState(false);
 
     useEffect(() => {
-        createCanvas(() => new ThePattern(domNode.current));
+        createCanvas(() => new LineChart(domNode.current));
     }, []);
 
     useEffect(() => {
