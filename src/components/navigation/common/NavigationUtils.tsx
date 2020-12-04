@@ -19,12 +19,16 @@ export interface RouteMap {
 
 export interface NavigationProps {
     handleDrawerToggle: () => void;
+    desktopOpen?: boolean;
     isMobileView: boolean;
     container: (() => HTMLElement) | undefined;
     classes: {
         link: string;
         drawerPaper: string;
         drawerHeader: string;
+        drawer: string;
+        drawerOpen: string;
+        drawerClose: string;
     };
 
     location: RouteProps['location'];

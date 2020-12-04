@@ -3,33 +3,43 @@ import FlashOnIcon from '@material-ui/icons/FlashOn';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import DrawerContent from './Drawer';
-import { NavigationProps, RoutesArray } from './NavigationUtils';
+import DrawerContent from '../common/Drawer';
+import { MobileNavigationProps, RoutesArray } from '../common/NavigationUtils';
 
-export default function DesktopNavbar({
+export default function MobileNavbar({
+    mobileOpen,
+    setMobileOpen,
     handleDrawerToggle,
+    container,
+    theme,
     classes,
     location,
     isMobileView,
-}: NavigationProps): React.ReactElement {
+}: MobileNavigationProps): React.ReactElement {
     return (
         <Drawer
+            container={container}
+            variant="temporary"
+            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
             classes={{
                 paper: classes.drawerPaper,
             }}
-            variant="permanent"
-            open
+            ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+            }}
         >
             <div className={classes.drawerHeader}>
-                <Box component="span" fontSize="h4.fontSize" fontWeight="fontWeightBold" className={'logo'}>
+                <Box component="span" fontSize="h4.fontSize" fontWeight="fontWeightBold">
                     <div
                         style={{
                             display: 'flex',
                             alignItems: 'center',
                         }}
                     >
-                        <Link to={RoutesArray.Home.route} className={classes.link}>
-                            <FlashOnIcon fontSize="inherit" />
+                        <Link onClick={() => setMobileOpen(false)} to={RoutesArray.Home.route} className={classes.link}>
+                            <FlashOnIcon style={{ fontSize: '2.125rem' }} />
                             PowerEd
                         </Link>
                     </div>

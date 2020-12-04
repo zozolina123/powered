@@ -23,17 +23,16 @@ function Home() {
     return (
         <>
             <DocumentTitle title="Home" />
-            <h2>Home</h2>
             <DatePicker />
             <button onClick={() => setData(generateArray())}>Shuffle</button>
             <button onClick={() => setData2(generateArray())}>Shuffle2</button>
-            <Grid container spacing={3}>
-                <Grid item xs={12} sm={8}>
+            <Grid container>
+                <Grid item xs={12} md={8}>
                     <DimProvider>
                         <Chart data={data} />
                     </DimProvider>
                 </Grid>
-                <Grid item xs={12} sm={8}>
+                <Grid item xs={12} md={8}>
                     <DimProvider>
                         <Chart data={data2} />
                     </DimProvider>

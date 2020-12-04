@@ -1,45 +1,43 @@
 import { Box, Drawer } from '@material-ui/core';
 import FlashOnIcon from '@material-ui/icons/FlashOn';
+import clsx from 'clsx';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import DrawerContent from './Drawer';
-import { MobileNavigationProps, RoutesArray } from './NavigationUtils';
+import DrawerContent from '../common/Drawer';
+import { NavigationProps, RoutesArray } from '../common/NavigationUtils';
 
-export default function MobileNavbar({
-    mobileOpen,
-    setMobileOpen,
+export default function DesktopNavbar({
     handleDrawerToggle,
-    container,
-    theme,
     classes,
     location,
     isMobileView,
-}: MobileNavigationProps): React.ReactElement {
+    desktopOpen,
+}: NavigationProps): React.ReactElement {
     return (
         <Drawer
-            container={container}
-            variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
+            variant="permanent"
+            className={clsx(classes.drawer, {
+                [classes.drawerOpen]: desktopOpen,
+                [classes.drawerClose]: !desktopOpen,
+            })}
             classes={{
-                paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
+                paper: clsx({
+                    [classes.drawerOpen]: desktopOpen,
+                    [classes.drawerClose]: !desktopOpen,
+                }),
             }}
         >
             <div className={classes.drawerHeader}>
-                <Box component="span" fontSize="h4.fontSize" fontWeight="fontWeightBold">
+                <Box component="span" fontSize="h4.fontSize" fontWeight="fontWeightBold" className={'logo'}>
                     <div
                         style={{
                             display: 'flex',
                             alignItems: 'center',
                         }}
                     >
-                        <Link onClick={() => setMobileOpen(false)} to={RoutesArray.Home.route} className={classes.link}>
-                            <FlashOnIcon style={{ fontSize: '2.125rem' }} />
+                        <Link to={RoutesArray.Home.route} className={classes.link}>
+                            <FlashOnIcon fontSize="inherit" />
                             PowerEd
                         </Link>
                     </div>

@@ -8,7 +8,7 @@ import Helmet from 'react-helmet';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Home from './components/home/Home';
-import ResponsiveNavbar, { drawerWidth } from './components/navigation/ResponsiveNavbar';
+import ResponsiveNavbar from './components/navigation/common/ResponsiveNavbar';
 import Settings from './components/settings/Settings';
 import { DimProvider } from './components/utils/DimContext';
 import IntlProvider from './components/wrappers/IntlWrapper';
@@ -17,11 +17,14 @@ import CustomThemeProvider from './components/wrappers/ThemeWrapper';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         toolbar: theme.mixins.toolbar,
+        root: {
+            display: 'flex',
+        },
         content: {
             flexGrow: 1,
-            padding: theme.spacing(2),
+            paddingTop: theme.spacing(3),
             [theme.breakpoints.up('md')]: {
-                marginLeft: `${drawerWidth}px`,
+                paddingLeft: theme.spacing(2),
             },
         },
     }),
@@ -37,21 +40,23 @@ const App: React.FC = () => {
                     <DimProvider>
                         <Router>
                             <Helmet titleTemplate="%s | PowerEd" defaultTitle="PowerEd" />
-                            <ResponsiveNavbar />
-                            <main className={classes.content}>
-                                <div className={classes.toolbar} />
-                                <Switch>
-                                    <Route path="/about">
-                                        <About />
-                                    </Route>
-                                    <Route path="/settings">
-                                        <Settings />
-                                    </Route>
-                                    <Route path="/">
-                                        <Home />
-                                    </Route>
-                                </Switch>
-                            </main>
+                            <div className={classes.root}>
+                                <ResponsiveNavbar />
+                                <main className={classes.content}>
+                                    <div className={classes.toolbar} />
+                                    <Switch>
+                                        <Route path="/about">
+                                            <About />
+                                        </Route>
+                                        <Route path="/settings">
+                                            <Settings />
+                                        </Route>
+                                        <Route path="/">
+                                            <Home />
+                                        </Route>
+                                    </Switch>
+                                </main>
+                            </div>
                         </Router>
                     </DimProvider>
                 </CustomThemeProvider>

@@ -1,29 +1,22 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
-import { drawerWidth } from './ResponsiveNavbar';
+import { drawerWidth } from '../common/ResponsiveNavbar';
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useMobileStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             display: 'flex',
         },
-        drawer: {
-            [theme.breakpoints.up('md')]: {
-                width: drawerWidth,
-                flexShrink: 0,
-            },
-        },
+        drawer: {},
+        drawerOpen: {},
+        drawerClose: {},
+        appBarShift: {},
+        hide: {},
         appBar: {
             color: theme.palette.common.white,
-            [theme.breakpoints.up('md')]: {
-                width: `calc(100% - ${drawerWidth}px)`,
-            },
         },
         menuButton: {
             marginRight: theme.spacing(2),
-            [theme.breakpoints.up('md')]: {
-                display: 'none',
-            },
         },
         // necessary for content to be below app bar
         toolbar: theme.mixins.toolbar,

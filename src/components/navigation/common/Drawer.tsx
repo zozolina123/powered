@@ -34,7 +34,7 @@ export default function Drawer({ isMobileView, handleDrawerToggle, classes, loca
                             <IconButton color={location?.pathname === RoutesArray[text].route ? 'primary' : 'inherit'}>
                                 {<Icon iconType={text} />}
                             </IconButton>
-                            <ListItemText>
+                            <ListItemText style={{ paddingLeft: '20px' }}>
                                 <FormattedMessage id={text} />
                             </ListItemText>
                         </ListItem>
@@ -58,7 +58,7 @@ export default function Drawer({ isMobileView, handleDrawerToggle, classes, loca
                             <IconButton color={location?.pathname === RoutesArray[text].route ? 'primary' : 'inherit'}>
                                 {<Icon iconType={text} />}
                             </IconButton>
-                            <ListItemText>
+                            <ListItemText style={{ paddingLeft: '20px' }}>
                                 <FormattedMessage id={text} />
                             </ListItemText>
                         </ListItem>
