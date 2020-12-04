@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import ResizeObserver from 'resize-observer-polyfill';
 
 const ReactDims = React.createContext<DOMRect>({} as DOMRect);
 
@@ -9,9 +10,19 @@ interface Props {
 export const DimProvider = (props: Props): React.ReactElement => {
     const domNode = useRef<HTMLDivElement>(null);
     const [dimensions, setDimensions] = useState({} as DOMRect);
+    const ro = new ResizeObserver((entries, observer) => {
+        for (const entry of entries) {
+            if (domNode && domNode.current) {
+                setDimensions(domNode.current.getBoundingClientRect());
+            }
+        }
+    });
 
     useEffect(() => {
-        if (domNode && domNode.current) setDimensions(domNode.current.getBoundingClientRect());
+        if (domNode && domNode.current) {
+            ro.observe(domNode.current);
+            setDimensions(domNode.current.getBoundingClientRect());
+        }
     }, []);
 
     useEffect(() => {

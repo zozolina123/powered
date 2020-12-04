@@ -41,6 +41,7 @@ export const useDesktopStyles = makeStyles((theme: Theme) =>
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.enteringScreen,
             }),
+            overflowX: 'hidden',
         },
         drawerClose: {
             transition: theme.transitions.create('width', {

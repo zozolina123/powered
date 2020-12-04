@@ -30,6 +30,8 @@ class LineChart {
         this.axes.updateAxes(this.scales, this.dims);
         this.lines.updateScales(this.scales);
         this.circles.updateScales(this.scales);
+        this.lines.updateData(this.data);
+        this.circles.updateData(this.data);
     };
 
     updateData = (data) => {

@@ -13,7 +13,7 @@ class Lines {
         this.updateData(this.data);
     }
 
-    updateData = (data) => {
+    updateData = (data, duration) => {
         this.data = data;
         this.lines = this.chart.selectAll('.lines').data([this.data]);
         this.lines
@@ -53,7 +53,6 @@ class Lines {
 
     updateScales = (scales) => {
         this.scales = scales;
-        console.log(this.scales.xScale(new Date(this.date.getTime() + 1 * 60 * 60 * 1000)));
         this.lines
             .transition()
             .duration(500)

@@ -6,7 +6,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
 import React from 'react';
@@ -71,8 +70,8 @@ export default function ResponsiveNavbar(props: { window?: () => Window }): Reac
                             <MenuIcon />
                         </IconButton>
                     ) : (
-                        <IconButton onClick={desktopOpen ? handleDrawerClose : handleDrawerOpen}>
-                            {desktopOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                        <IconButton color="inherit" onClick={desktopOpen ? handleDrawerClose : handleDrawerOpen}>
+                            {desktopOpen ? <ChevronLeftIcon /> : <MenuIcon />}
                         </IconButton>
                     )}
                     <Typography variant="h6" noWrap>
@@ -81,7 +80,6 @@ export default function ResponsiveNavbar(props: { window?: () => Window }): Reac
                 </Toolbar>
             </AppBar>
             <nav aria-label="navigation">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Hidden smUp implementation="css">
                     <MobileNavbar
                         theme={theme}
