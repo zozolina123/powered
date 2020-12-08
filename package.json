@@ -21,6 +21,7 @@
         "@types/react-helmet": "^6.1.0",
         "@types/react-intl": "^3.0.0",
         "@types/react-router-dom": "^5.1.6",
+        "axios": "^0.21.0",
         "d3-axis": "^2.0.0",
         "d3-scale": "^3.2.3",
         "d3-selection": "^2.0.0",
@@ -33,6 +34,7 @@
         "react-dom": "^16.13.1",
         "react-helmet": "^6.1.0",
         "react-intl": "^5.4.6",
+        "react-redux": "^7.2.2",
         "react-router-dom": "^5.2.0",
         "react-scripts": "3.4.1",
         "typescript": "~3.7.2"
