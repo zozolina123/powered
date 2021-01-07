@@ -28,8 +28,9 @@ function Home({ dims }: { dims: DOMRect }): React.ReactElement {
         !(Object.keys(fetchedData).length === 0) && setData(fetchedData);
     }, [fetchedData]);
 
-    function generateArray() {
+    function generateArray(date = new Date(Date.now())) {
         const arr = [];
+        console.log(date);
         for (let i = 0; i < 25; i++) {
             arr[i] = Math.round(Math.random() * 9);
         }
@@ -41,8 +42,6 @@ function Home({ dims }: { dims: DOMRect }): React.ReactElement {
             <Box component="div">
                 <DocumentTitle title="Home" />
                 <DatePicker />
-                <button onClick={() => setData(generateArray())}>Shuffle</button>
-                <button onClick={() => setData2(generateArray())}>Shuffle2</button>
                 <Grid container>
                     <Grid item xs={12} md={8}>
                         <DimProvider>
