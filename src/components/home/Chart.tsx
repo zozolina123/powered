@@ -7,9 +7,10 @@ import { DimInterface } from '../utils/UtilIntefaces';
 interface Props {
     dims: DimInterface;
     data: number[];
+    date: Date;
 }
 
-function Chart({ dims, data }: Props) {
+function Chart({ dims, data, date }: Props) {
     const domNode = useRef(null);
     const [canvas, createCanvas] = useState({} as LineChart);
     const [vizInitialized, setVizInitialized] = useState(false);
@@ -20,7 +21,7 @@ function Chart({ dims, data }: Props) {
 
     useEffect(() => {
         if (data.length > 1 && dims.width && vizInitialized === false) {
-            canvas.init(data, dims);
+            canvas.init(data, dims, date);
             setVizInitialized(() => true);
         }
     }, [data, dims]);
@@ -30,7 +31,7 @@ function Chart({ dims, data }: Props) {
     }, [dims]);
 
     useEffect(() => {
-        vizInitialized && canvas.updateData(data);
+        vizInitialized && canvas.updateData(data, date);
     }, [data]);
 
     return <div ref={domNode} style={{ display: 'grid', height: '300px' }} />;

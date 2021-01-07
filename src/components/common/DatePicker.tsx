@@ -1,48 +1,40 @@
 import DateFnsUtils from '@date-io/date-fns';
-import { Box } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import { DatePicker } from '@material-ui/pickers';
-import React, { useEffect } from 'react';
+import { KeyboardDatePicker } from '@material-ui/pickers';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-interface Props {
-    onChange: (date: Date) => void;
-}
+import { changeDate } from '../../redux/actions/dateActions';
+import { RootState } from '../../redux/reducers';
 
-export default function CustomDatePicker({ onChange }: Props): React.ReactElement {
-    const todayDate = new Date(Date.now());
-    const [selectedDate, setSelectedDate] = React.useState<Date | null>(todayDate);
+export default function DatePicker(): React.ReactElement {
+    const todayDate = new Date();
+    const selectedDate = useSelector((state: RootState) => state.date);
     const DateUtil = new DateFnsUtils();
-
-    useEffect(() => {
-        selectedDate && onChange(selectedDate);
-    }, [selectedDate]);
+    const dispatch = useDispatch();
 
     const handleDateChange = (date: Date | null) => {
-        if (selectedDate !== date) setSelectedDate(date);
+        date && dispatch(changeDate(date));
     };
-
-    interface Props {
-        value: string;
-        onClick: () => void;
-    }
 
     return (
         <Grid container justify="space-around">
-            <Box width="125px">
-                <DatePicker
-                    minDate={DateUtil.addDays(todayDate, -365)}
-                    maxDate={todayDate}
-                    autoOk={true}
-                    disableToolbar
-                    variant="inline"
-                    format="dd/MM/yyyy"
-                    margin="normal"
-                    id="date-picker-inline"
-                    label="Date picker inline"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                />
-            </Box>
+            <KeyboardDatePicker
+                minDate={DateUtil.addDays(todayDate, -365)}
+                maxDate={todayDate}
+                autoOk={true}
+                disableToolbar
+                variant="inline"
+                format="dd/MM/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                label="Date picker inline"
+                value={selectedDate}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                }}
+            />
         </Grid>
     );
 }

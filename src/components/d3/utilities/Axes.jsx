@@ -24,8 +24,12 @@ class Axes {
 
     updateAxes = (scales, dims) => {
         this.scaleAxes(scales, dims);
-        this.xAxisBottomG.attr('transform', `translate(0, ${dims.innerHeight})`).call(this.xAxisBottom);
-        this.yAxisLeftG.call(this.yAxisLeft);
+        this.xAxisBottomG
+            .attr('transform', `translate(0, ${dims.innerHeight})`)
+            .transition()
+            .duration(1000)
+            .call(this.xAxisBottom);
+        this.yAxisLeftG.transition().duration(1000).call(this.yAxisLeft);
     };
 }
 
