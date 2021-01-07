@@ -1,20 +1,20 @@
 import { transition } from 'd3-transition';
 
 class Circles {
-    constructor(chart, data, scales, tooltip) {
+    constructor(chart, data, date, scales, tooltip) {
         this.transitionRef = transition;
         this.chart = chart;
         this.data = data;
         this.scales = scales;
         this.tooltip = tooltip;
-        const date = new Date(Date.now());
         date.setMinutes(0, 0, 0);
         this.date = date;
-        this.updateData(this.data);
+        this.updateData(this.data, this.date);
     }
 
-    updateData = (data) => {
+    updateData = (data, date) => {
         this.data = data;
+        this.date = date;
         this.circles = this.chart.selectAll('.circles').data(this.data);
 
         this.circles

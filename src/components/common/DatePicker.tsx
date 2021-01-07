@@ -2,14 +2,19 @@ import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@material-ui/core/Grid';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { changeDate } from '../../redux/actions/dateActions';
+import { RootState } from '../../redux/reducers';
 
 export default function DatePicker() {
-    const todayDate = new Date(Date.now());
-    const [selectedDate, setSelectedDate] = React.useState<Date | null>(todayDate);
+    const todayDate = new Date();
+    const selectedDate = useSelector((state: RootState) => state.date);
     const DateUtil = new DateFnsUtils();
+    const dispatch = useDispatch();
 
     const handleDateChange = (date: Date | null) => {
-        setSelectedDate(date);
+        date && dispatch(changeDate(date));
     };
 
     return (

@@ -12,6 +12,7 @@ import ResponsiveNavbar from './components/navigation/common/ResponsiveNavbar';
 import Settings from './components/settings/Settings';
 import { DimProvider } from './components/utils/DimContext';
 import IntlProvider from './components/wrappers/IntlWrapper';
+import ReduxWrapper from './components/wrappers/ReduxWrapper';
 import CustomThemeProvider from './components/wrappers/ThemeWrapper';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,32 +36,34 @@ const App: React.FC = () => {
 
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <IntlProvider>
-                <CustomThemeProvider>
-                    <DimProvider>
-                        <Router>
-                            <Helmet titleTemplate="%s | PowerEd" defaultTitle="PowerEd" />
-                            <div className={classes.root}>
-                                <ResponsiveNavbar />
-                                <main className={classes.content}>
-                                    <div className={classes.toolbar} />
-                                    <Switch>
-                                        <Route path="/about">
-                                            <About />
-                                        </Route>
-                                        <Route path="/settings">
-                                            <Settings />
-                                        </Route>
-                                        <Route path="/">
-                                            <Home />
-                                        </Route>
-                                    </Switch>
-                                </main>
-                            </div>
-                        </Router>
-                    </DimProvider>
-                </CustomThemeProvider>
-            </IntlProvider>
+            <ReduxWrapper>
+                <IntlProvider>
+                    <CustomThemeProvider>
+                        <DimProvider>
+                            <Router>
+                                <Helmet titleTemplate="%s | PowerEd" defaultTitle="PowerEd" />
+                                <div className={classes.root}>
+                                    <ResponsiveNavbar />
+                                    <main className={classes.content}>
+                                        <div className={classes.toolbar} />
+                                        <Switch>
+                                            <Route path="/about">
+                                                <About />
+                                            </Route>
+                                            <Route path="/settings">
+                                                <Settings />
+                                            </Route>
+                                            <Route path="/">
+                                                <Home />
+                                            </Route>
+                                        </Switch>
+                                    </main>
+                                </div>
+                            </Router>
+                        </DimProvider>
+                    </CustomThemeProvider>
+                </IntlProvider>
+            </ReduxWrapper>
         </MuiPickersUtilsProvider>
     );
 };
