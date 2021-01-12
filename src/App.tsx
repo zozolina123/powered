@@ -7,7 +7,9 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import Daily from './components/home/Daily';
 import Home from './components/home/Home';
+import Monthly from './components/home/Monthly';
 import ResponsiveNavbar from './components/navigation/common/ResponsiveNavbar';
 import Settings from './components/settings/Settings';
 import { DimProvider } from './components/utils/DimContext';
@@ -47,8 +49,11 @@ const App: React.FC = () => {
                                     <main className={classes.content}>
                                         <div className={classes.toolbar} />
                                         <Switch>
-                                            <Route path="/about">
-                                                <About />
+                                            <Route path="/daily">
+                                                <Daily />
+                                            </Route>
+                                            <Route path="/monthly">
+                                                <Monthly />
                                             </Route>
                                             <Route path="/settings">
                                                 <Settings />

@@ -7,20 +7,20 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchData } from '../../redux/actions/consumptionDataActions';
 import { RootState } from '../../redux/reducers';
+import MonthPicker from '../common/MonthPicker';
 import { DimProvider, withContext } from '../utils/DimContext';
 import DocumentTitle from '../utils/DocumentTitle';
 import Chart from './Chart';
 
-function Home(): React.ReactElement {
+function Monthly(): React.ReactElement {
     const [data, setData] = useState({} as number[]);
     const state = useSelector((state: RootState) => state);
-    const date = new Date();
-    date.setMinutes(0, 0, 0);
+    const date = state.date;
     const fetchedData = state.consumptionData.data;
     const dispatch = useDispatch();
 
     useEffect(() => {
-        !data.length && date && dispatch(fetchData(date));
+        date && dispatch(fetchData(date));
     }, [date]);
 
     useEffect(() => {
@@ -30,7 +30,8 @@ function Home(): React.ReactElement {
     return (
         <DimProvider>
             <Box component="div">
-                <DocumentTitle title="Home" />
+                <DocumentTitle title="Daily" />
+                <MonthPicker />
                 <Grid container>
                     <Grid item xs={12} md={8}>
                         <DimProvider>
@@ -43,4 +44,4 @@ function Home(): React.ReactElement {
     );
 }
 
-export default withContext(Home);
+export default withContext(Monthly);

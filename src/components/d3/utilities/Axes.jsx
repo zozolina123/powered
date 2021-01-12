@@ -1,4 +1,5 @@
 import { axisBottom, axisLeft } from 'd3-axis';
+import { timeFormat } from 'd3-time-format';
 
 class Axes {
     constructor(parent, scales, dims) {
@@ -17,7 +18,7 @@ class Axes {
     };
 
     scaleAxes = (scales, dims) => {
-        this.xAxisBottom = axisBottom().scale(scales.xScale).tickSize(-dims.innerHeight);
+        this.xAxisBottom = axisBottom().scale(scales.xScale).tickSize(-dims.innerHeight).tickFormat(timeFormat('%H'));
 
         this.yAxisLeft = axisLeft().scale(scales.yScale).tickSize(-dims.innerWidth);
     };
