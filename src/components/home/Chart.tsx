@@ -8,15 +8,16 @@ interface Props {
     dims: DimInterface;
     data: number[];
     date: Date;
+    type: string;
 }
 
-function Chart({ dims, data, date }: Props) {
+function Chart({ dims, data, date, type = 'day' }: Props) {
     const domNode = useRef(null);
     const [canvas, createCanvas] = useState({} as LineChart);
     const [vizInitialized, setVizInitialized] = useState(false);
 
     useEffect(() => {
-        createCanvas(() => new LineChart(domNode.current));
+        createCanvas(() => new LineChart(domNode.current, type));
     }, []);
 
     useEffect(() => {

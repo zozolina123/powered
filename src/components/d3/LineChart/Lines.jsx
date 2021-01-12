@@ -2,11 +2,12 @@ import { line } from 'd3-shape';
 import { transition } from 'd3-transition';
 
 class Lines {
-    constructor(chart, data, date, scales) {
+    constructor(chart, data, date, scales, type) {
         this.transitionRef = transition;
         this.chart = chart;
         this.data = data;
         this.scales = scales;
+        this.timeMultiplier = type == 'day' ? 60 * 60 * 1000 : 24 * 60 * 60 * 1000;
         date.setMinutes(0, 0, 0);
         this.date = date;
         this.updateData(this.data, this.date);
@@ -24,7 +25,7 @@ class Lines {
             .attr(
                 'd',
                 line()
-                    .x((d, i) => this.scales.xScale(new Date(this.date.getTime() + i * 60 * 60 * 1000)))
+                    .x((d, i) => this.scales.xScale(new Date(this.date.getTime() + i * this.timeMultiplier)))
                     .y((d) => this.scales.yScale(d)),
             );
 
@@ -42,7 +43,7 @@ class Lines {
             .attr(
                 'd',
                 line()
-                    .x((d, i) => this.scales.xScale(new Date(this.date.getTime() + i * 60 * 60 * 1000)))
+                    .x((d, i) => this.scales.xScale(new Date(this.date.getTime() + i * this.timeMultiplier)))
                     .y((d) => this.scales.yScale(d)),
             );
 
@@ -61,7 +62,7 @@ class Lines {
             .attr(
                 'd',
                 line()
-                    .x((d, i) => this.scales.xScale(new Date(this.date.getTime() + i * 60 * 60 * 1000)))
+                    .x((d, i) => this.scales.xScale(new Date(this.date.getTime() + i * this.timeMultiplier)))
                     .y((d) => this.scales.yScale(d)),
             );
     };

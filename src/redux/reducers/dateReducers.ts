@@ -1,10 +1,24 @@
-import { CHANGE_DATE } from '../actions/dateActions';
-import { IDateAction } from '../ApiInterfaces';
+import { CHANGE_DATE, CHANGE_MONTH } from '../actions/dateActions';
+import { IDateAction, IDateState, isOfTypeMonth } from '../ApiInterfaces';
 
-const date = (state = new Date(), action: IDateAction): Date => {
+const todayDate = new Date();
+const monthName = todayDate.toLocaleString('default', { month: 'long' });
+
+const initialState: IDateState = {
+    day: todayDate,
+    month: isOfTypeMonth(monthName) ? monthName : 'January',
+    week: null,
+};
+
+const date = (state = initialState, action: IDateAction): IDateState => {
     switch (action.type) {
         case CHANGE_DATE:
-            return action.date || new Date();
+            return { ...state, day: action.date || todayDate };
+        case CHANGE_MONTH:
+            return {
+                ...state,
+                month: isOfTypeMonth(action.month) ? action.month : 'January',
+            };
         default:
             return state;
     }

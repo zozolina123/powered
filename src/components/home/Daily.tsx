@@ -15,8 +15,8 @@ import Chart from './Chart';
 function Daily(): React.ReactElement {
     const [data, setData] = useState({} as number[]);
     const state = useSelector((state: RootState) => state);
-    const date = state.date;
-    const fetchedData = state.consumptionData.data;
+    const date = state.date.day;
+    const fetchedData = state.consumptionData.dailyData;
     const dispatch = useDispatch();
 
     useEffect(() => {

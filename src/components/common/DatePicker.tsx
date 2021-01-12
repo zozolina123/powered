@@ -13,7 +13,7 @@ interface Props {
 
 export default function DatePicker({ onlyPrevDays }: Props): React.ReactElement {
     const todayDate = new Date();
-    const selectedDate = useSelector((state: RootState) => state.date);
+    const selectedDate = useSelector((state: RootState) => state.date.day);
     const DateUtil = new DateFnsUtils();
     const dispatch = useDispatch();
 

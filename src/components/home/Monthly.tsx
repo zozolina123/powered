@@ -5,7 +5,8 @@ import Box from '@material-ui/core/Box/Box';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchData } from '../../redux/actions/consumptionDataActions';
+import { monthsArray } from '../../api/ConsumpionDataAPI';
+import { fetchMonthData } from '../../redux/actions/consumptionDataActions';
 import { RootState } from '../../redux/reducers';
 import MonthPicker from '../common/MonthPicker';
 import { DimProvider, withContext } from '../utils/DimContext';
@@ -14,14 +15,20 @@ import Chart from './Chart';
 
 function Monthly(): React.ReactElement {
     const [data, setData] = useState({} as number[]);
+    const [date, setDate] = useState(new Date());
     const state = useSelector((state: RootState) => state);
-    const date = state.date;
-    const fetchedData = state.consumptionData.data;
+    const month = state.date.month;
+    const fetchedData = state.consumptionData.monthlyData;
     const dispatch = useDispatch();
 
     useEffect(() => {
-        date && dispatch(fetchData(date));
-    }, [date]);
+        const dateClone = new Date(date.valueOf());
+        dateClone.setMonth(monthsArray.indexOf(month));
+        dateClone.setDate(1);
+        dateClone.setHours(0, 0, 0, 0);
+        setDate(dateClone);
+        dispatch(fetchMonthData(month));
+    }, [month]);
 
     useEffect(() => {
         !(Object.keys(fetchedData).length === 0) && setData(fetchedData);
@@ -35,7 +42,7 @@ function Monthly(): React.ReactElement {
                 <Grid container>
                     <Grid item xs={12} md={8}>
                         <DimProvider>
-                            <Chart data={data} date={date} />
+                            <Chart data={data} date={date} type="month" />
                         </DimProvider>
                     </Grid>
                 </Grid>

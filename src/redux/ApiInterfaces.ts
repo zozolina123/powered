@@ -1,3 +1,34 @@
+export type MonthTypes =
+    | 'January'
+    | 'February'
+    | 'March'
+    | 'April'
+    | 'May'
+    | 'June'
+    | 'July'
+    | 'August'
+    | 'September'
+    | 'October'
+    | 'November'
+    | 'December';
+
+export function isOfTypeMonth(str: any): str is MonthTypes {
+    return [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+    ].includes(str);
+}
+
 export interface IConsumptionDataAPI {
     January: any;
     February: any;
@@ -16,6 +47,7 @@ export interface IConsumptionDataAPI {
 export interface IDateAction {
     type: string;
     date?: Date;
+    month?: MonthTypes;
 }
 
 export enum APIStatusEnum {
@@ -34,5 +66,12 @@ export interface IConsumptionDataAction {
 
 export interface IConsumptionDataState {
     status: APIStatusEnum;
-    data: number[];
+    dailyData: number[];
+    monthlyData: number[];
+}
+
+export interface IDateState {
+    day: Date;
+    month: MonthTypes;
+    week: null;
 }

@@ -1,10 +1,12 @@
 import { transition } from 'd3-transition';
 
 class Circles {
-    constructor(chart, data, date, scales, tooltip) {
+    constructor(chart, data, date, scales, tooltip, type) {
         this.transitionRef = transition;
         this.chart = chart;
         this.data = data;
+        this.type = type;
+        this.timeMultiplier = type === 'day' ? 60 * 60 * 1000 : 24 * 60 * 60 * 1000;
         this.scales = scales;
         this.tooltip = tooltip;
         date.setMinutes(0, 0, 0);
@@ -20,7 +22,7 @@ class Circles {
         this.circles
             .transition()
             .duration(1000)
-            .attr('cx', (d, i) => this.scales.xScale(new Date(this.date.getTime() + i * 60 * 60 * 1000)))
+            .attr('cx', (d, i) => this.scales.xScale(new Date(this.date.getTime() + i * this.timeMultiplier)))
             .attr('cy', (d) => this.scales.yScale(d));
 
         this.enter();
@@ -35,7 +37,7 @@ class Circles {
             .attr('fill', 'blue')
             .attr('stroke', 'none')
             .attr('r', 4)
-            .attr('cx', (d, i) => this.scales.xScale(new Date(this.date.getTime() + i * 60 * 60 * 1000)))
+            .attr('cx', (d, i) => this.scales.xScale(new Date(this.date.getTime() + i * this.timeMultiplier)))
             .attr('cy', (d) => this.scales.yScale(d))
             .on('mouseenter', (event, d, i) => this.tooltip.mouseenter(event, d))
             .on('mouseout', () => this.tooltip.mouseout());
@@ -53,7 +55,7 @@ class Circles {
         this.circles
             .transition()
             .duration(500)
-            .attr('cx', (d, i) => this.scales.xScale(new Date(this.date.getTime() + i * 60 * 60 * 1000)))
+            .attr('cx', (d, i) => this.scales.xScale(new Date(this.date.getTime() + i * this.timeMultiplier)))
             .attr('cy', (d) => this.scales.yScale(d));
     };
 }

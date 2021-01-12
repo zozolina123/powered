@@ -1,20 +1,36 @@
-import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@material-ui/core/Grid';
 import { KeyboardDatePicker } from '@material-ui/pickers';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { changeDate } from '../../redux/actions/dateActions';
+import { monthsArray } from '../../api/ConsumpionDataAPI';
+import { changeMonth } from '../../redux/actions/dateActions';
+import { isOfTypeMonth } from '../../redux/ApiInterfaces';
 import { RootState } from '../../redux/reducers';
 
 export default function MonthPicker(): React.ReactElement {
     const todayDate = new Date();
-    const selectedDate = useSelector((state: RootState) => state.date);
-    const DateUtil = new DateFnsUtils();
+    todayDate.setDate(1);
+    todayDate.setHours(0, 0, 0, 0);
+    const [selectedDate, setSelectedDate] = useState(todayDate);
+    const month = useSelector((state: RootState) => state.date.month);
     const dispatch = useDispatch();
 
-    const handleDateChange = (date: Date | null) => {
-        date && dispatch(changeDate(date));
+    const formatWeekSelectLabel = () => {
+        return month;
+    };
+
+    useEffect(() => {
+        const dateClone = new Date(selectedDate.valueOf());
+        dateClone.setMonth(monthsArray.indexOf(month));
+        setSelectedDate(dateClone);
+    }, [month]);
+
+    const handleMonthChange = (date: Date | null) => {
+        const monthName = date?.toLocaleString('default', { month: 'long' });
+        if (monthName && isOfTypeMonth(monthName)) {
+            dispatch(changeMonth(monthName));
+        }
     };
 
     return (
@@ -25,11 +41,12 @@ export default function MonthPicker(): React.ReactElement {
                 variant="inline"
                 views={['month']}
                 format="dd/MM/yyyy"
+                labelFunc={formatWeekSelectLabel}
                 margin="normal"
                 id="date-picker-inline"
                 label="Date picker inline"
                 value={selectedDate}
-                onChange={handleDateChange}
+                onChange={handleMonthChange}
                 KeyboardButtonProps={{
                     'aria-label': 'change month',
                 }}

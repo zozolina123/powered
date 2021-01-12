@@ -1,6 +1,7 @@
+import { MonthTypes } from '../redux/ApiInterfaces';
 import API from './API';
 import { dailyConsumptionURL } from './routes';
-const monthsArray = [
+export const monthsArray = [
     'January',
     'February',
     'March',
@@ -23,8 +24,8 @@ class ConsumptionDataAPI {
         return data;
     };
 
-    fetchMonthlyConsumptionData = async (date: Date) => {
-        const data = await API.get('/');
+    fetchMonthlyConsumptionData = async (monthName: MonthTypes) => {
+        const data = await API.get(`/month/${monthName}`);
         return data;
     };
 

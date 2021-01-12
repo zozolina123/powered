@@ -16,7 +16,7 @@ function Home(): React.ReactElement {
     const state = useSelector((state: RootState) => state);
     const date = new Date();
     date.setMinutes(0, 0, 0);
-    const fetchedData = state.consumptionData.data;
+    const fetchedData = state.consumptionData.dailyData;
     const dispatch = useDispatch();
 
     useEffect(() => {

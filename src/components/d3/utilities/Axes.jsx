@@ -2,12 +2,13 @@ import { axisBottom, axisLeft } from 'd3-axis';
 import { timeFormat } from 'd3-time-format';
 
 class Axes {
-    constructor(parent, scales, dims) {
-        this.createAxes(parent, scales, dims);
+    constructor(parent, scales, dims, type) {
+        this.type = type;
+        this.createAxes(parent, scales, dims, type);
     }
 
     createAxes = (parent, scales, dims) => {
-        this.scaleAxes(scales, dims);
+        this.scaleAxes(scales, dims, this.type);
 
         this.xAxisBottomG = parent
             .append('g')
@@ -18,7 +19,8 @@ class Axes {
     };
 
     scaleAxes = (scales, dims) => {
-        this.xAxisBottom = axisBottom().scale(scales.xScale).tickSize(-dims.innerHeight).tickFormat(timeFormat('%H'));
+        const format = this.type === 'day' ? '%H' : '%a %d';
+        this.xAxisBottom = axisBottom().scale(scales.xScale).tickSize(-dims.innerHeight).tickFormat(timeFormat(format));
 
         this.yAxisLeft = axisLeft().scale(scales.yScale).tickSize(-dims.innerWidth);
     };
