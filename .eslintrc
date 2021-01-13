@@ -28,5 +28,5 @@
       "unused-imports/no-unused-imports": "error",
       "unused-imports/no-unused-imports-ts": "error",
       "simple-import-sort/sort": "error"
-    }
+    },
   }

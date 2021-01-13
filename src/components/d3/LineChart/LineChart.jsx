@@ -20,7 +20,7 @@ class LineChart {
         this.scales = new Scales(this.data, this.dims, this.date, this.type);
         this.chart = this.svg.append('g');
         this.chart.attr('transform', `translate(${this.dims.margin.left}, ${this.dims.margin.top})`);
-        this.axes = new Axes(this.chart, this.scales, this.dims);
+        this.axes = new Axes(this.chart, this.scales, this.dims, this.type);
         this.lines = new Lines(this.chart, this.data, this.date, this.scales, this.type);
         this.tooltip = new Tooltip(this.tooltipDiv, this.data);
         this.circles = new Circles(this.chart, this.data, this.date, this.scales, this.tooltip, this.type);

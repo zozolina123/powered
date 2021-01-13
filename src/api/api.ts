@@ -8,4 +8,5 @@ const headers = {
 
 export default axios.create({
     baseURL,
+    headers,
 });
