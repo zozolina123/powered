@@ -21,7 +21,7 @@ class Axes {
     scaleAxes = (scales, dims) => {
         const format = this.type === 'day' ? '%H' : '%a %d';
         this.xAxisBottom = axisBottom().scale(scales.xScale).tickSize(-dims.innerHeight).tickFormat(timeFormat(format));
-
+        this.type === 'week' && this.xAxisBottom.ticks(7);
         this.yAxisLeft = axisLeft().scale(scales.yScale).tickSize(-dims.innerWidth);
     };
 

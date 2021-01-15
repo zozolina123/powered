@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Daily from './components/home/Daily';
 import Home from './components/home/Home';
 import Monthly from './components/home/Monthly';
+import Weekly from './components/home/Weekly';
 import ResponsiveNavbar from './components/navigation/common/ResponsiveNavbar';
 import Settings from './components/settings/Settings';
 import { DimProvider } from './components/utils/DimContext';
@@ -54,6 +55,9 @@ const App: React.FC = () => {
                                             </Route>
                                             <Route path="/monthly">
                                                 <Monthly />
+                                            </Route>
+                                            <Route path="/weekly">
+                                                <Weekly />
                                             </Route>
                                             <Route path="/settings">
                                                 <Settings />

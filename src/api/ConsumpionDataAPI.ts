@@ -29,6 +29,11 @@ class ConsumptionDataAPI {
         return data;
     };
 
+    fetchWeeklyConsumptionData = async (date: Date) => {
+        const data = await API.get(`/week/${monthsArray[date.getMonth()]}/${date.getDate()}`);
+        return data;
+    };
+
     fetchYearlyConsumptionData = async (date: Date) => {
         const data = await API.get('/');
         return data;

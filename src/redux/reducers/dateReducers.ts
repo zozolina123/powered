@@ -1,4 +1,4 @@
-import { CHANGE_DATE, CHANGE_MONTH } from '../actions/dateActions';
+import { CHANGE_DATE, CHANGE_MONTH, CHANGE_WEEK } from '../actions/dateActions';
 import { IDateAction, IDateState, isOfTypeMonth } from '../ApiInterfaces';
 
 const todayDate = new Date();
@@ -7,7 +7,7 @@ const monthName = todayDate.toLocaleString('default', { month: 'long' });
 const initialState: IDateState = {
     day: todayDate,
     month: isOfTypeMonth(monthName) ? monthName : 'January',
-    week: null,
+    week: todayDate,
 };
 
 const date = (state = initialState, action: IDateAction): IDateState => {
@@ -18,6 +18,11 @@ const date = (state = initialState, action: IDateAction): IDateState => {
             return {
                 ...state,
                 month: isOfTypeMonth(action.month) ? action.month : 'January',
+            };
+        case CHANGE_WEEK:
+            return {
+                ...state,
+                week: action.week || todayDate,
             };
         default:
             return state;
