@@ -1,3 +1,4 @@
+import { max } from 'd3-array';
 import { scaleBand, scaleLinear } from 'd3-scale';
 
 class Scales {
@@ -8,7 +9,7 @@ class Scales {
     setScales = (data, dims, type) => {
         this.xScale = scaleBand()
             .range([0, dims.innerWidth])
-            .domain(['SUnday', 'Monday', 'Thursday', ' Wensday', 'Thuesday', 'Friday', ' Saturday'])
+            .domain(['Sunday', 'Monday', 'Thursday', ' Wensday', 'Thuesday', 'Friday', ' Saturday'])
             .padding(0.3);
         this.yScale = scaleLinear()
             .range([dims.innerHeight, 0])

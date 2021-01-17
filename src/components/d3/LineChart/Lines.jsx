@@ -15,7 +15,6 @@ class Lines {
 
     updateData = (data, date) => {
         this.data = data;
-        // console.log(date);
         // date.setMinutes(0, 0, 0);
         this.date = date;
         this.lines = this.chart.selectAll('.lines').data([this.data]);

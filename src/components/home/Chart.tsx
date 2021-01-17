@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import LineChart from '../d3/LineChart/LineChart';
+import BarChart from '../d3/BarChart/BarChart';
 import { withContext } from '../utils/DimContext';
 import { DimInterface } from '../utils/UtilIntefaces';
 
@@ -13,16 +13,16 @@ interface Props {
 
 function Chart({ dims, data, date, type = 'day' }: Props) {
     const domNode = useRef(null);
-    const [canvas, createCanvas] = useState({} as LineChart);
+    const [canvas, createCanvas] = useState({} as BarChart);
     const [vizInitialized, setVizInitialized] = useState(false);
 
     useEffect(() => {
-        createCanvas(() => new LineChart(domNode.current, type));
+        createCanvas(() => new BarChart(domNode.current, type));
     }, []);
 
     useEffect(() => {
         if (data.length > 1 && dims.width && vizInitialized === false) {
-            canvas.init(data, dims, date);
+            canvas.init(data, dims);
             setVizInitialized(() => true);
         }
     }, [data, dims]);
@@ -32,7 +32,7 @@ function Chart({ dims, data, date, type = 'day' }: Props) {
     }, [dims]);
 
     useEffect(() => {
-        vizInitialized && canvas.updateData(data, date);
+        vizInitialized && canvas.updateData(data);
     }, [data]);
 
     return <div ref={domNode} style={{ display: 'grid', height: '300px' }} />;

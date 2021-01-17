@@ -1,7 +1,9 @@
 import { axisBottom, axisLeft } from 'd3-axis';
+import { transition } from 'd3-transition';
 
 class Axes {
     constructor(parent, scales, dims, type) {
+        const transitionRef = transition;
         this.type = type;
         this.createAxes(parent, scales, dims, type);
     }
@@ -17,20 +19,14 @@ class Axes {
     };
 
     scaleAxes = (scales, dims) => {
-        this.yAxisLeft = axisLeft().scale(yScale).tickSize(-width, 0, 0).tickFormat('');
+        this.yAxisLeft = axisLeft().scale(scales.yScale).tickSize(-dims.innerWidth, 0, 0);
         this.xAxisBottom = axisBottom().scale(scales.xScale).tickSize(-dims.innerHeight);
     };
 
     updateAxes = (scales, dims) => {
         this.scaleAxes(scales, dims);
-        this.xAxisBottomG = parent
-            .append('g')
-            .attr('transform', `translate(0, ${dims.innerHeight})`)
-            .transition()
-            .duration(1000)
-            .call(this.xAxisBottom);
-
-        this.yAxisLeftG = parent.append('g').attr('class', 'grid').transition().duration(1000).call(this.yAxisLeft);
+        this.xAxisBottomG.transition().duration(1000).call(this.xAxisBottom);
+        this.yAxisLeftG.transition().duration(1000).call(this.yAxisLeft);
     };
 }
 
