@@ -42,7 +42,12 @@ function Monthly(): React.ReactElement {
                 <Grid container>
                     <Grid item xs={12} md={8}>
                         <DimProvider>
-                            <Chart data={[1, 2, 3, 4, 5, 6, 7]} date={date} type="month" />
+                            <Chart data={data} date={date} type="month" />
+                        </DimProvider>
+                    </Grid>
+                    <Grid item xs={12} md={8}>
+                        <DimProvider>
+                            <Chart data={[1, 2, 3, 4, 5, 6, 7]} date={date} type="month" chartType={'BarChart'} />
                         </DimProvider>
                     </Grid>
                 </Grid>

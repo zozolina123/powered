@@ -1,15 +1,14 @@
 import { transition } from 'd3-transition';
 
-const days = ['Sunday', 'Monday', 'Thursday', ' Wensday', 'Thuesday', 'Friday', ' Saturday'];
-
 class Rectangles {
-    constructor(chart, data, scales, dims, type) {
+    constructor(chart, data, scales, dims, type, unit) {
         this.transitionRef = transition;
         this.chart = chart;
         this.data = data;
         this.dims = dims;
         this.type = type;
         this.scales = scales;
+        this.unit = unit;
         this.updateData(this.data);
     }
 
@@ -17,6 +16,7 @@ class Rectangles {
         this.data = data;
         this.bars = this.chart.selectAll('.bar').data(this.data);
         this.text = this.chart.selectAll('.value').data(this.data);
+        const days = this.unit;
 
         this.bars
             .transition()
@@ -40,6 +40,7 @@ class Rectangles {
         const dims = this.dims;
         const scales = this.scales;
         const text = this.text;
+        const days = this.unit;
         this.bars
             .enter()
             .append('rect')
@@ -119,6 +120,7 @@ class Rectangles {
 
     updateScales = (scales) => {
         this.scales = scales;
+        const days = this.unit;
         this.text
             .transition()
             .duration(500)

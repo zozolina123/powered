@@ -21,6 +21,7 @@ function Weekly(): React.ReactElement {
 
     useEffect(() => {
         date && dispatch(fetchWeekData(date));
+        date.setHours(0, 0, 0, 0);
     }, [date]);
 
     useEffect(() => {
@@ -36,6 +37,11 @@ function Weekly(): React.ReactElement {
                     <Grid item xs={12} md={8}>
                         <DimProvider>
                             <Chart type={'week'} data={data} date={date} />
+                        </DimProvider>
+                    </Grid>
+                    <Grid item xs={12} md={8}>
+                        <DimProvider>
+                            <Chart data={[1, 2, 3, 4, 5, 6, 7]} date={date} type="week" chartType={'BarChart'} />
                         </DimProvider>
                     </Grid>
                 </Grid>

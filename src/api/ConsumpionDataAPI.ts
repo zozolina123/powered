@@ -1,6 +1,9 @@
 import { MonthTypes } from '../redux/ApiInterfaces';
 import API from './API';
 import { dailyConsumptionURL } from './routes';
+
+export const weekArray = ['Sunday', 'Monday', 'Thursday', ' Wensday', 'Thuesday', 'Friday', ' Saturday'];
+export const dayArray = ['00:00', '00:01'];
 export const monthsArray = [
     'January',
     'February',
