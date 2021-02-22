@@ -2,8 +2,12 @@ import { MonthTypes } from '../redux/ApiInterfaces';
 import API from './API';
 import { dailyConsumptionURL } from './routes';
 
-export const weekArray = ['Sunday', 'Monday', 'Thursday', ' Wensday', 'Thuesday', 'Friday', ' Saturday'];
-export const dayArray = ['00:00', '00:01'];
+export const weekArray = ['Sunday', 'Monday', 'Thursday', 'Wednesday', 'Tuesday', 'Friday', 'Saturday'];
+export const dayArray: string[] = [];
+for (let i = 0; i < 24; i++) {
+    dayArray.push('0' + i + ':00');
+}
+console.log(dayArray);
 export const monthsArray = [
     'January',
     'February',
@@ -40,6 +44,17 @@ class ConsumptionDataAPI {
     fetchYearlyConsumptionData = async (date: Date) => {
         const data = await API.get('/');
         return data;
+    };
+
+    fetchOverviewConsumptionData = async () => {
+        const weekData = API.get(`/overview/day`);
+        const hourData = API.get(`/overview/hour`);
+        const monthData = API.get(`/overview/month`);
+        return {
+            weekData: (await weekData).data,
+            hourData: (await hourData).data,
+            monthData: (await monthData).data,
+        };
     };
 }
 

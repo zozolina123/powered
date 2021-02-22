@@ -101,14 +101,14 @@ class Rectangles {
                 chart.selectAll('.divergence').remove();
             });
 
-        this.text
-            .enter()
-            .append('text')
-            .attr('class', 'value')
-            .attr('x', (a, i) => this.scales.xScale(days[i]) + this.scales.xScale.bandwidth() / 2)
-            .attr('y', (a) => this.scales.yScale(a) + 30)
-            .attr('text-anchor', 'middle')
-            .text((dataVal) => dataVal);
+        // this.text
+        //     .enter()
+        //     .append('text')
+        //     .attr('class', 'value')
+        //     .attr('x', (a, i) => this.scales.xScale(days[i]) + this.scales.xScale.bandwidth() / 2)
+        //     .attr('y', (a) => this.scales.yScale(a) + 30)
+        //     .attr('text-anchor', 'middle')
+        //     .text((dataVal) => Math.round(dataVal));
 
         this.exit();
     };

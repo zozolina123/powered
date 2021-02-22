@@ -19,6 +19,7 @@ function Monthly(): React.ReactElement {
     const state = useSelector((state: RootState) => state);
     const month = state.date.month;
     const fetchedData = state.consumptionData.monthlyData;
+    const chartData = state.consumptionData.overviewData.monthArray;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -47,7 +48,7 @@ function Monthly(): React.ReactElement {
                     </Grid>
                     <Grid item xs={12} md={8}>
                         <DimProvider>
-                            <Chart data={[1, 2, 3, 4, 5, 6, 7]} date={date} type="month" chartType={'BarChart'} />
+                            <Chart data={chartData || []} date={date} type="month" chartType={'BarChart'} />
                         </DimProvider>
                     </Grid>
                 </Grid>

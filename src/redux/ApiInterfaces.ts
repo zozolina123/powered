@@ -70,6 +70,7 @@ export interface IConsumptionDataState {
     dailyData: number[];
     monthlyData: number[];
     weeklyData: number[];
+    overviewData?: any;
 }
 
 export interface IDateState {

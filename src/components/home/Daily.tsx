@@ -17,6 +17,7 @@ function Daily(): React.ReactElement {
     const state = useSelector((state: RootState) => state);
     const date = state.date.day;
     const fetchedData = state.consumptionData.dailyData;
+    const chartData = state.consumptionData.overviewData.hourArray;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -40,7 +41,7 @@ function Daily(): React.ReactElement {
                     </Grid>
                     <Grid item xs={12} md={8}>
                         <DimProvider>
-                            <Chart data={[1, 2, 3, 4, 5, 6, 7]} date={date} type="day" chartType={'BarChart'} />
+                            <Chart data={chartData || []} date={date} type="day" chartType={'BarChart'} />
                         </DimProvider>
                     </Grid>
                 </Grid>

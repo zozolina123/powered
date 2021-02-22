@@ -15,6 +15,7 @@ import ResponsiveNavbar from './components/navigation/common/ResponsiveNavbar';
 import Settings from './components/settings/Settings';
 import { DimProvider } from './components/utils/DimContext';
 import IntlProvider from './components/wrappers/IntlWrapper';
+import OverviewDataWrapper from './components/wrappers/OverviewDataWrapper';
 import ReduxWrapper from './components/wrappers/ReduxWrapper';
 import CustomThemeProvider from './components/wrappers/ThemeWrapper';
 
@@ -42,34 +43,36 @@ const App: React.FC = () => {
             <ReduxWrapper>
                 <IntlProvider>
                     <CustomThemeProvider>
-                        <DimProvider>
-                            <Router>
-                                <Helmet titleTemplate="%s | PowerEd" defaultTitle="PowerEd" />
-                                <div className={classes.root}>
-                                    <ResponsiveNavbar />
-                                    <main className={classes.content}>
-                                        <div className={classes.toolbar} />
-                                        <Switch>
-                                            <Route path="/daily">
-                                                <Daily />
-                                            </Route>
-                                            <Route path="/monthly">
-                                                <Monthly />
-                                            </Route>
-                                            <Route path="/weekly">
-                                                <Weekly />
-                                            </Route>
-                                            <Route path="/settings">
-                                                <Settings />
-                                            </Route>
-                                            <Route path="/">
-                                                <Home />
-                                            </Route>
-                                        </Switch>
-                                    </main>
-                                </div>
-                            </Router>
-                        </DimProvider>
+                        <OverviewDataWrapper>
+                            <DimProvider>
+                                <Router>
+                                    <Helmet titleTemplate="%s | PowerEd" defaultTitle="PowerEd" />
+                                    <div className={classes.root}>
+                                        <ResponsiveNavbar />
+                                        <main className={classes.content}>
+                                            <div className={classes.toolbar} />
+                                            <Switch>
+                                                <Route path="/daily">
+                                                    <Daily />
+                                                </Route>
+                                                <Route path="/monthly">
+                                                    <Monthly />
+                                                </Route>
+                                                <Route path="/weekly">
+                                                    <Weekly />
+                                                </Route>
+                                                <Route path="/settings">
+                                                    <Settings />
+                                                </Route>
+                                                <Route path="/">
+                                                    <Home />
+                                                </Route>
+                                            </Switch>
+                                        </main>
+                                    </div>
+                                </Router>
+                            </DimProvider>
+                        </OverviewDataWrapper>
                     </CustomThemeProvider>
                 </IntlProvider>
             </ReduxWrapper>
