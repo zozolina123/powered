@@ -48,6 +48,7 @@ export interface IDateAction {
     type: string;
     date?: Date;
     month?: MonthTypes;
+    week?: Date;
 }
 
 export enum APIStatusEnum {
@@ -68,10 +69,12 @@ export interface IConsumptionDataState {
     status: APIStatusEnum;
     dailyData: number[];
     monthlyData: number[];
+    weeklyData: number[];
+    overviewData?: any;
 }
 
 export interface IDateState {
     day: Date;
     month: MonthTypes;
-    week: null;
+    week: Date;
 }

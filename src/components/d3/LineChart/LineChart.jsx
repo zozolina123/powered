@@ -1,9 +1,9 @@
 import { select } from 'd3-selection';
 
-import { Axes, Dimensions, Scales } from '../utilities';
 import Circles from './Circles';
 import Lines from './Lines';
 import Tooltip from './Tooltip';
+import { Axes, Dimensions, Scales } from './utilities';
 
 class LineChart {
     constructor(domNodeCurrent, type) {

@@ -7,7 +7,7 @@ class Scales {
     }
 
     setScales = (data, dims, date, type) => {
-        date.setHours(0, 0, 0, 0);
+        // date.setHours(0, 0, 0, 0);
         const timeMultiplier = type === 'day' ? 23 * 60 * 60 * 1000 : (data.length - 1) * 24 * 60 * 60 * 1000;
         this.xScale = scaleTime()
             .domain([date, new Date(date.getTime() + timeMultiplier)])

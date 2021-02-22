@@ -1,8 +1,9 @@
 import { axisBottom, axisLeft } from 'd3-axis';
-import { timeFormat } from 'd3-time-format';
+import { transition } from 'd3-transition';
 
 class Axes {
     constructor(parent, scales, dims, type) {
+        const transitionRef = transition;
         this.type = type;
         this.createAxes(parent, scales, dims, type);
     }
@@ -14,24 +15,17 @@ class Axes {
             .append('g')
             .attr('transform', `translate(0, ${dims.innerHeight})`)
             .call(this.xAxisBottom);
-
-        this.yAxisLeftG = parent.append('g').call(this.yAxisLeft);
+        this.yAxisLeftG = parent.append('g').attr('class', 'grid').call(this.yAxisLeft);
     };
 
     scaleAxes = (scales, dims) => {
-        const format = this.type === 'day' ? '%H' : '%a %d';
-        this.xAxisBottom = axisBottom().scale(scales.xScale).tickSize(-dims.innerHeight).tickFormat(timeFormat(format));
-
-        this.yAxisLeft = axisLeft().scale(scales.yScale).tickSize(-dims.innerWidth);
+        this.yAxisLeft = axisLeft().scale(scales.yScale).tickSize(-dims.innerWidth, 0, 0);
+        this.xAxisBottom = axisBottom().scale(scales.xScale).tickSize(-dims.innerHeight);
     };
 
     updateAxes = (scales, dims) => {
         this.scaleAxes(scales, dims);
-        this.xAxisBottomG
-            .attr('transform', `translate(0, ${dims.innerHeight})`)
-            .transition()
-            .duration(1000)
-            .call(this.xAxisBottom);
+        this.xAxisBottomG.transition().duration(1000).call(this.xAxisBottom);
         this.yAxisLeftG.transition().duration(1000).call(this.yAxisLeft);
     };
 }
