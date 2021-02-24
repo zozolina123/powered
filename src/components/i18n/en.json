@@ -8,5 +8,11 @@
     "Carbon footprint": "Carbon Footprint",
     "Price Comparison": "Price Comparison",
     "Settings": "Settings",
-    "Language": "Language"
+    "Language": "Language",
+    "Consumption Summary": "Consumption Summary",
+    "Peak Value": "Peak Value: ",
+    "Average Value": "Average Value: ",
+    "Compared to average consumption": "Compared to average consumption: ",
+    "Total cost": "Total Cost: ",
+    "Total consumption": "Total Consumption: "
 }

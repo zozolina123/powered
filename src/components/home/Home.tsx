@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchData } from '../../redux/actions/consumptionDataActions';
 import { RootState } from '../../redux/reducers';
+import Card from '../common/Card';
 import { DimProvider, withContext } from '../utils/DimContext';
 import DocumentTitle from '../utils/DocumentTitle';
 import Chart from './Chart';
@@ -36,6 +37,9 @@ function Home(): React.ReactElement {
                         <DimProvider>
                             <Chart data={data} date={date} />
                         </DimProvider>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Card />
                     </Grid>
                 </Grid>
             </Box>
