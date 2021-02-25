@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchData } from '../../redux/actions/consumptionDataActions';
 import { RootState } from '../../redux/reducers';
-import Card from '../common/Card';
+import { getAverage, getMax, getTotal, getTotalCost } from '../../utils/consumptionHelpers';
+import Card from '../common/ConsumptionCard';
 import { DimProvider, withContext } from '../utils/DimContext';
 import DocumentTitle from '../utils/DocumentTitle';
 import Chart from './Chart';
@@ -39,7 +40,13 @@ function Home(): React.ReactElement {
                         </DimProvider>
                     </Grid>
                     <Grid item xs={12} md={4}>
-                        <Card />
+                        <Card
+                            averageValue={getAverage(data)}
+                            comparedToAverage={10}
+                            peakValue={getMax(data)}
+                            totalConsumption={getTotal(data)}
+                            totalCost={getTotalCost(data, 0.8)}
+                        />
                     </Grid>
                 </Grid>
             </Box>

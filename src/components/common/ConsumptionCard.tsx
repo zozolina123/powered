@@ -29,9 +29,16 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function DetailsCard() {
+export default function DetailsCard(props: {
+    peakValue: number;
+    averageValue: number;
+    comparedToAverage: number;
+    totalCost: number;
+    totalConsumption: number;
+}): React.ReactElement {
     const classes = useStyles();
     const { formatMessage } = useIntl();
+    const { peakValue, averageValue, comparedToAverage, totalCost, totalConsumption } = props;
 
     return (
         <Card className={classes.root} variant="outlined">
@@ -40,19 +47,19 @@ export default function DetailsCard() {
                     {formatMessage({ id: 'Consumption Summary' })}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    {formatMessage({ id: 'Peak Value' })}
+                    {formatMessage({ id: 'Peak Value' }) + peakValue + ' kW'}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    {formatMessage({ id: 'Average Value' })}
+                    {formatMessage({ id: 'Average Value' }) + averageValue + ' kW'}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    {formatMessage({ id: 'Compared to average consumption' })}
+                    {formatMessage({ id: 'Compared to average consumption' }) + comparedToAverage + ' %'}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    {formatMessage({ id: 'Total cost' })}
+                    {formatMessage({ id: 'Total cost' }) + totalCost + ' lei'}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    {formatMessage({ id: 'Total consumption' })}
+                    {formatMessage({ id: 'Total consumption' }) + totalConsumption + ' kW'}
                 </Typography>
             </CardContent>
         </Card>
