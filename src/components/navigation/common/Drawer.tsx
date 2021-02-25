@@ -19,7 +19,7 @@ export default function Drawer({ isMobileView, handleDrawerToggle, classes, loca
     return (
         <div>
             <List>
-                {['Home', 'Daily', 'Weekly', 'Monthly'].map((text, index) => (
+                {['home', 'daily', 'weekly', 'monthly'].map((text, index) => (
                     <Link
                         onClick={() => isMobileView && handleDrawerToggle()}
                         to={RoutesArray[text].route}
@@ -35,7 +35,7 @@ export default function Drawer({ isMobileView, handleDrawerToggle, classes, loca
                                 {<Icon iconType={text} />}
                             </IconButton>
                             <ListItemText style={{ paddingLeft: '20px' }}>
-                                <FormattedMessage id={text} />
+                                <FormattedMessage id={'Page.' + text.toLowerCase()} />
                             </ListItemText>
                         </ListItem>
                     </Link>
@@ -43,7 +43,7 @@ export default function Drawer({ isMobileView, handleDrawerToggle, classes, loca
             </List>
             <Divider />
             <List>
-                {['Carbon footprint', 'Price Comparison', 'Settings'].map((text, index) => (
+                {['carbonFootprint', 'priceComparison', 'settings'].map((text, index) => (
                     <Link
                         onClick={() => isMobileView && handleDrawerToggle()}
                         to={RoutesArray[text].route}
@@ -59,7 +59,7 @@ export default function Drawer({ isMobileView, handleDrawerToggle, classes, loca
                                 {<Icon iconType={text} />}
                             </IconButton>
                             <ListItemText style={{ paddingLeft: '20px' }}>
-                                <FormattedMessage id={text} />
+                                <FormattedMessage id={'Page.' + text} />
                             </ListItemText>
                         </ListItem>
                     </Link>

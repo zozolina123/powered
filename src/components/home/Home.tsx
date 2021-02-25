@@ -7,14 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchData } from '../../redux/actions/consumptionDataActions';
 import { RootState } from '../../redux/reducers';
-import { getAverage, getMax, getTotal, getTotalCost } from '../../utils/consumptionHelpers';
 import Card from '../common/ConsumptionCard';
 import { DimProvider, withContext } from '../utils/DimContext';
 import DocumentTitle from '../utils/DocumentTitle';
 import Chart from './Chart';
 
 function Home(): React.ReactElement {
-    const [data, setData] = useState({} as number[]);
+    const [data, setData] = useState<number[]>([]);
     const state = useSelector((state: RootState) => state);
     const date = new Date();
     date.setMinutes(0, 0, 0);
@@ -40,13 +39,7 @@ function Home(): React.ReactElement {
                         </DimProvider>
                     </Grid>
                     <Grid item xs={12} md={4}>
-                        <Card
-                            averageValue={getAverage(data)}
-                            comparedToAverage={10}
-                            peakValue={getMax(data)}
-                            totalConsumption={getTotal(data)}
-                            totalCost={getTotalCost(data, 0.8)}
-                        />
+                        <Card data={data} />
                     </Grid>
                 </Grid>
             </Box>

@@ -43,31 +43,31 @@ export interface MobileNavigationProps extends NavigationProps {
 }
 
 export const RoutesArray: RouteMap = {
-    Home: {
+    home: {
         icon: HomeIcon,
         route: '/',
     },
-    Daily: {
+    daily: {
         icon: TodayIcon,
         route: '/daily',
     },
-    Weekly: {
+    weekly: {
         icon: ViewWeekIcon,
         route: '/weekly',
     },
-    Monthly: {
+    monthly: {
         icon: CalendarTodayIcon,
         route: '/monthly',
     },
-    'Carbon footprint': {
+    carbonFootprint: {
         icon: EcoIcon,
         route: '/footprint',
     },
-    'Price Comparison': {
+    priceComparison: {
         icon: AttachMoneyIcon,
         route: '/price',
     },
-    Settings: {
+    settings: {
         icon: SettingsIcon,
         route: '/settings',
     },

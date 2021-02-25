@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { monthsArray } from '../../api/ConsumpionDataAPI';
 import { fetchMonthData } from '../../redux/actions/consumptionDataActions';
 import { RootState } from '../../redux/reducers';
-import { getAverage, getMax, getTotal, getTotalCost } from '../../utils/consumptionHelpers';
 import Card from '../common/ConsumptionCard';
 import MonthPicker from '../common/MonthPicker';
 import { DimProvider, withContext } from '../utils/DimContext';
@@ -16,7 +15,7 @@ import DocumentTitle from '../utils/DocumentTitle';
 import Chart from './Chart';
 
 function Monthly(): React.ReactElement {
-    const [data, setData] = useState({} as number[]);
+    const [data, setData] = useState<number[]>([]);
     const [date, setDate] = useState(new Date());
     const state = useSelector((state: RootState) => state);
     const month = state.date.month;
@@ -49,13 +48,7 @@ function Monthly(): React.ReactElement {
                         </DimProvider>
                     </Grid>
                     <Grid item xs={12} md={4}>
-                        <Card
-                            averageValue={getAverage(data)}
-                            comparedToAverage={10}
-                            peakValue={getMax(data)}
-                            totalConsumption={getTotal(data)}
-                            totalCost={getTotalCost(data, 0.8)}
-                        />
+                        <Card data={data} />
                     </Grid>
                     <Grid item xs={12} md={8}>
                         <DimProvider>

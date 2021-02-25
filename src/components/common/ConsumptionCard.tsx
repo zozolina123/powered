@@ -2,8 +2,14 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useIntl } from 'react-intl';
+
+import { getAverage, getMax, getTotal, getTotalCost } from '../../utils/consumptionHelpers';
+
+interface Props {
+    data: number[];
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -29,37 +35,37 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function DetailsCard(props: {
-    peakValue: number;
-    averageValue: number;
-    comparedToAverage: number;
-    totalCost: number;
-    totalConsumption: number;
-}): React.ReactElement {
+export default function DetailsCard(props: Props): React.ReactElement {
     const classes = useStyles();
     const { formatMessage } = useIntl();
-    const { peakValue, averageValue, comparedToAverage, totalCost, totalConsumption } = props;
+    const { data } = props;
+    const peakValue = useMemo(() => getMax(data), [data]);
+    const averageValue = useMemo(() => getAverage(data), [data]);
+    //# TODO: need to get function for compare average
+    const comparedToAverage = 10;
+    const totalCost = useMemo(() => getTotalCost(data, 0.05), [data]);
+    const totalConsumption = useMemo(() => getTotal(data), [data]);
 
     return (
         <Card className={classes.root} variant="outlined">
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    {formatMessage({ id: 'Consumption Summary' })}
+                    {formatMessage({ id: 'ConsumptionCard.consumptionSummary' })}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    {formatMessage({ id: 'Peak Value' }) + peakValue + ' kW'}
+                    {formatMessage({ id: 'ConsumptionCard.peakValue' }) + peakValue + ' kW'}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    {formatMessage({ id: 'Average Value' }) + averageValue + ' kW'}
+                    {formatMessage({ id: 'ConsumptionCard.averageValue' }) + averageValue + ' kW'}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    {formatMessage({ id: 'Compared to average consumption' }) + comparedToAverage + ' %'}
+                    {formatMessage({ id: 'ConsumptionCard.comparedToAverage' }) + comparedToAverage + ' %'}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    {formatMessage({ id: 'Total cost' }) + totalCost + ' lei'}
+                    {formatMessage({ id: 'ConsumptionCard.totalCost' }) + totalCost + ' lei'}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    {formatMessage({ id: 'Total consumption' }) + totalConsumption + ' kW'}
+                    {formatMessage({ id: 'ConsumptionCard.totalConsumption' }) + totalConsumption + ' kW'}
                 </Typography>
             </CardContent>
         </Card>

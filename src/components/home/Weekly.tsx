@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchWeekData } from '../../redux/actions/consumptionDataActions';
 import { RootState } from '../../redux/reducers';
-import { getAverage, getMax, getTotal, getTotalCost } from '../../utils/consumptionHelpers';
 import Card from '../common/ConsumptionCard';
 import WeekPicker from '../common/WeekPicker';
 import { DimProvider, withContext } from '../utils/DimContext';
@@ -15,7 +14,7 @@ import DocumentTitle from '../utils/DocumentTitle';
 import Chart from './Chart';
 
 function Weekly(): React.ReactElement {
-    const [data, setData] = useState({} as number[]);
+    const [data, setData] = useState<number[]>([]);
     const state = useSelector((state: RootState) => state);
     const date = state.date.week;
     const fetchedData = state.consumptionData.weeklyData;
@@ -43,13 +42,7 @@ function Weekly(): React.ReactElement {
                         </DimProvider>
                     </Grid>
                     <Grid item xs={12} md={4}>
-                        <Card
-                            averageValue={getAverage(data)}
-                            comparedToAverage={10}
-                            peakValue={getMax(data)}
-                            totalConsumption={getTotal(data)}
-                            totalCost={getTotalCost(data, 0.8)}
-                        />
+                        <Card data={data} />
                     </Grid>
                     <Grid item xs={12} md={8}>
                         <DimProvider>
