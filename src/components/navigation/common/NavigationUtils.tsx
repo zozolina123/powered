@@ -10,12 +10,16 @@ import ViewWeekIcon from '@material-ui/icons/ViewWeek';
 import React from 'react';
 import { RouteProps } from 'react-router-dom';
 
-export interface RouteMap {
-    [key: string]: {
+const routes = ['home', 'daily', 'weekly', 'monthly', 'settings', 'carbonFootprint', 'priceComparison'] as const;
+
+export type TRoute = typeof routes[number];
+
+export type IRoutes = {
+    [key in TRoute]: {
         icon: OverridableComponent<SvgIconTypeMap<Record<string, unknown>, 'svg'>>;
         route: string;
     };
-}
+};
 
 export interface NavigationProps {
     handleDrawerToggle: () => void;
@@ -42,7 +46,7 @@ export interface MobileNavigationProps extends NavigationProps {
     mobileOpen: boolean;
 }
 
-export const RoutesArray: RouteMap = {
+export const RoutesArray: IRoutes = {
     home: {
         icon: HomeIcon,
         route: '/',

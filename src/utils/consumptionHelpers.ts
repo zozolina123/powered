@@ -1,5 +1,4 @@
 const sumElements = (data: number[]) => {
-    console.log(data);
     return data.reduce((sum, val) => sum + val, 0);
 };
 
