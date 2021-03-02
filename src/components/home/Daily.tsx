@@ -9,6 +9,7 @@ import { fetchData } from '../../redux/actions/consumptionDataActions';
 import { RootState } from '../../redux/reducers';
 import Card from '../common/ConsumptionCard';
 import DatePicker from '../common/DatePicker';
+import OverviewCard from '../common/OverviewCard';
 import { DimProvider, withContext } from '../utils/DimContext';
 import DocumentTitle from '../utils/DocumentTitle';
 import Chart from './Chart';
@@ -47,6 +48,9 @@ function Daily(): React.ReactElement {
                         <DimProvider>
                             <Chart data={chartData || []} date={date} type="day" chartType={'BarChart'} />
                         </DimProvider>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <OverviewCard data={chartData || []} type="day" />
                     </Grid>
                 </Grid>
             </Box>

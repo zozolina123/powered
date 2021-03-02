@@ -14,5 +14,10 @@
     "ConsumptionCard.averageValue": "Average Value: ",
     "ConsumptionCard.comparedToAverage": "Compared to average consumption: ",
     "ConsumptionCard.totalCost": "Total Cost: ",
-    "ConsumptionCard.totalConsumption": "Total Consumption: "
+    "ConsumptionCard.totalConsumption": "Total Consumption: ",
+    "OverviewCard.overviewSummary": "Overview Summary",
+    "OverviewCard.averageConsumption": "Average Consumption: ",
+    "OverviewCard.highestConsumption": "Highest Consumption: ",
+    "OverviewCard.lowestConsumption": "Lowest Consumption: ",
+    "OverviewCard.loHiComparison": "Low to High Comparison: "
 }

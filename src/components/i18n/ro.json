@@ -14,5 +14,10 @@
     "ConsumptionCard.averageValue": "Valoare Medie: ",
     "ConsumptionCard.comparedToAverage": "Comparat cu consumul mediu: ",
     "ConsumptionCard.totalCost": "Cost Total: ",
-    "ConsumptionCard.totalConsumption": "Consum Total: "
+    "ConsumptionCard.totalConsumption": "Consum Total: ",
+    "OverviewCard.overviewSummary": "Sumar prezentare generala",
+    "OverviewCard.averageConsumption": "Consum Mediu: ",
+    "OverviewCard.highestConsumption": "Consum Maxim: ",
+    "OverviewCard.lowestConsumption": "Consum Minim: ",
+    "OverviewCard.loHiComparison": "Comparare Minim si Maxim: "
 }
