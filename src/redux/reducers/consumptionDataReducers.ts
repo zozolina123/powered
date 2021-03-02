@@ -93,9 +93,6 @@ function mapOverviewObjectToArray(obj: any) {
         console.log(key);
         dayArray.push(obj.weekData[key]);
     });
-    console.log(hourArray);
-    console.log(monthArray);
-    console.log(dayArray);
     return { hourArray, monthArray, dayArray };
 }
 

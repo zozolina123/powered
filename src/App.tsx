@@ -14,8 +14,8 @@ import Weekly from './components/home/Weekly';
 import ResponsiveNavbar from './components/navigation/common/ResponsiveNavbar';
 import Settings from './components/settings/Settings';
 import { DimProvider } from './components/utils/DimContext';
+import DataWrapper from './components/wrappers/DataWrapper';
 import IntlProvider from './components/wrappers/IntlWrapper';
-import OverviewDataWrapper from './components/wrappers/OverviewDataWrapper';
 import ReduxWrapper from './components/wrappers/ReduxWrapper';
 import CustomThemeProvider from './components/wrappers/ThemeWrapper';
 
@@ -43,7 +43,7 @@ const App: React.FC = () => {
             <ReduxWrapper>
                 <IntlProvider>
                     <CustomThemeProvider>
-                        <OverviewDataWrapper>
+                        <DataWrapper>
                             <DimProvider>
                                 <Router>
                                     <Helmet titleTemplate="%s | PowerEd" defaultTitle="PowerEd" />
@@ -72,7 +72,7 @@ const App: React.FC = () => {
                                     </div>
                                 </Router>
                             </DimProvider>
-                        </OverviewDataWrapper>
+                        </DataWrapper>
                     </CustomThemeProvider>
                 </IntlProvider>
             </ReduxWrapper>
