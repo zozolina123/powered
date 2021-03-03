@@ -2,9 +2,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import consumptionDataReducer from '../../redux/reducers/consumptionDataSlice';
-import dateReducer from '../../redux/reducers/dateReducers';
-import priceDataReducer from '../../redux/reducers/priceDataReducers';
+import priceDataReducer from '../../redux/reducers/priceDataSlice';
+import dateReducer from '../datePickers/dateSlice';
+import consumptionDataReducer from '../pages/consumptionDataSlice';
 
 interface Props {
     children: React.ReactElement;

@@ -5,23 +5,22 @@ import Box from '@material-ui/core/Box/Box';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchDailyData } from '../../redux/reducers/consumptionDataSlice';
-import DatePicker from '../common/DatePicker';
 import { DimProvider, withContext } from '../utils/DimContext';
 import DocumentTitle from '../utils/DocumentTitle';
 import { RootState } from '../wrappers/ReduxWrapper';
 import Chart from './Chart';
+import { fetchDailyData } from './consumptionDataSlice';
 
-function Daily(): React.ReactElement {
+function Home(): React.ReactElement {
     const [data, setData] = useState({} as number[]);
     const state = useSelector((state: RootState) => state);
-    const date = state.date.day;
+    const date = new Date();
+    date.setMinutes(0, 0, 0);
     const fetchedData = state.consumptionData.dailyData.data;
-    const chartData = state.consumptionData.overviewData.data.day;
     const dispatch = useDispatch();
 
     useEffect(() => {
-        date && dispatch(fetchDailyData(date));
+        !data.length && date && dispatch(fetchDailyData(date));
     }, [date]);
 
     useEffect(() => {
@@ -31,17 +30,11 @@ function Daily(): React.ReactElement {
     return (
         <DimProvider>
             <Box component="div">
-                <DocumentTitle title="Daily" />
-                <DatePicker onlyPrevDays={true} />
+                <DocumentTitle title="Home" />
                 <Grid container>
                     <Grid item xs={12} md={8}>
                         <DimProvider>
                             <Chart data={data} date={date} />
-                        </DimProvider>
-                    </Grid>
-                    <Grid item xs={12} md={8}>
-                        <DimProvider>
-                            <Chart data={chartData || []} date={date} type="day" chartType={'BarChart'} />
                         </DimProvider>
                     </Grid>
                 </Grid>
@@ -50,4 +43,4 @@ function Daily(): React.ReactElement {
     );
 }
 
-export default withContext(Daily);
+export default withContext(Home);

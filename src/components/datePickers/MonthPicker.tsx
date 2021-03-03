@@ -4,9 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { monthsArray } from '../../api/ConsumpionDataAPI';
-import { changeMonth } from '../../redux/actions/dateActions';
 import { isOfTypeMonth } from '../../redux/ApiInterfaces';
 import { RootState } from '../wrappers/ReduxWrapper';
+import { changeMonth } from './dateSlice';
 
 export default function MonthPicker(): React.ReactElement {
     const todayDate = new Date();

@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import ConsumpionDataAPI, { DayName, HourName, MonthName, weekArray } from '../../api/ConsumpionDataAPI';
-import { RootState } from '../../components/wrappers/ReduxWrapper';
-import { APIStatusEnum } from '../ApiInterfaces';
+import { APIStatusEnum } from '../../redux/ApiInterfaces';
+import { RootState } from '../wrappers/ReduxWrapper';
 
 type TData = {
     status: APIStatusEnum;
@@ -59,7 +59,6 @@ const initialState: ConsumptionDataState = {
 };
 
 export const fetchDailyData = createAsyncThunk('consumptionData/fetchDailyData', async (date: Date) => {
-    console.log('HERE');
     return await ConsumpionDataAPI.fetchDailyConsumptionData(date);
 });
 
@@ -115,18 +114,19 @@ const consumptionDataSlice = createSlice({
     },
 });
 
-export function mapOverviewObjectToArray(obj: OverviewObject) {
+export function mapOverviewObjectToArray({ hourData, monthData, weekData }: OverviewObject) {
     const hourArray: number[] = [];
     const monthArray: number[] = [];
     const dayArray: number[] = [];
-    Object.keys(obj.hourData).forEach((key) => {
-        hourArray.push(obj.hourData[key]);
+
+    Object.keys(hourData).forEach((key) => {
+        hourArray.push(hourData[key]);
     });
-    Object.keys(obj.monthData).forEach((key) => {
-        monthArray.push(obj.monthData[key]);
+    Object.keys(monthData).forEach((key) => {
+        monthArray.push(monthData[key]);
     });
     weekArray.forEach((key) => {
-        dayArray.push(obj.weekData[key]);
+        dayArray.push(weekData[key]);
     });
     return { hourArray, monthArray, dayArray };
 }
