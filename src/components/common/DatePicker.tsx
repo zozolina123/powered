@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { changeDate } from '../../redux/actions/dateActions';
-import { RootState } from '../../redux/reducers';
+import { RootState } from '../wrappers/ReduxWrapper';
 
 interface Props {
     onlyPrevDays?: boolean;

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { fetchOverviewData } from '../../redux/actions/consumptionDataActions';
 import { fetchPriceData } from '../../redux/actions/priceDataActions';
+import { fetchOverviewData } from '../../redux/reducers/consumptionDataSlice';
 
 interface Props {
     children: JSX.Element;

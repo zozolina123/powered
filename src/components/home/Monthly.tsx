@@ -6,11 +6,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { monthsArray } from '../../api/ConsumpionDataAPI';
-import { fetchMonthData } from '../../redux/actions/consumptionDataActions';
-import { RootState } from '../../redux/reducers';
+import { fetchMonthlyData } from '../../redux/reducers/consumptionDataSlice';
 import MonthPicker from '../common/MonthPicker';
 import { DimProvider, withContext } from '../utils/DimContext';
 import DocumentTitle from '../utils/DocumentTitle';
+import { RootState } from '../wrappers/ReduxWrapper';
 import Chart from './Chart';
 
 function Monthly(): React.ReactElement {
@@ -18,8 +18,8 @@ function Monthly(): React.ReactElement {
     const [date, setDate] = useState(new Date());
     const state = useSelector((state: RootState) => state);
     const month = state.date.month;
-    const fetchedData = state.consumptionData.monthlyData;
-    const chartData = state.consumptionData.overviewData.monthArray;
+    const fetchedData = state.consumptionData.monthlyData.data;
+    const chartData = state.consumptionData.overviewData.data.month;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -28,7 +28,7 @@ function Monthly(): React.ReactElement {
         dateClone.setDate(1);
         dateClone.setHours(0, 0, 0, 0);
         setDate(dateClone);
-        dispatch(fetchMonthData(month));
+        dispatch(fetchMonthlyData(month));
     }, [month]);
 
     useEffect(() => {

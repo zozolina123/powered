@@ -5,23 +5,23 @@ import Box from '@material-ui/core/Box/Box';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchWeekData } from '../../redux/actions/consumptionDataActions';
-import { RootState } from '../../redux/reducers';
+import { fetchWeeklyData } from '../../redux/reducers/consumptionDataSlice';
 import WeekPicker from '../common/WeekPicker';
 import { DimProvider, withContext } from '../utils/DimContext';
 import DocumentTitle from '../utils/DocumentTitle';
+import { RootState } from '../wrappers/ReduxWrapper';
 import Chart from './Chart';
 
 function Weekly(): React.ReactElement {
     const [data, setData] = useState({} as number[]);
     const state = useSelector((state: RootState) => state);
     const date = state.date.week;
-    const fetchedData = state.consumptionData.weeklyData;
-    const chartData = state.consumptionData.overviewData.dayArray;
+    const fetchedData = state.consumptionData.weeklyData.data;
+    const chartData = state.consumptionData.overviewData.data.week;
     const dispatch = useDispatch();
 
     useEffect(() => {
-        date && dispatch(fetchWeekData(date));
+        date && dispatch(fetchWeeklyData(date));
         date.setHours(0, 0, 0, 0);
     }, [date]);
 

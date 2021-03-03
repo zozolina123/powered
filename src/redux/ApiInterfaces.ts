@@ -61,14 +61,14 @@ export enum APIStatusEnum {
 export interface IConsumptionDataAction {
     type: string;
     status?: APIStatusEnum;
-    data: number[];
+    data?: number[];
     date?: Date;
 }
 
 export interface IPriceDataAction {
     type: string;
     status?: APIStatusEnum;
-    data: IPrice[];
+    data?: IPrice[];
 }
 
 export interface IConsumptionDataState {

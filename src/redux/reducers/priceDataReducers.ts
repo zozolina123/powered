@@ -7,7 +7,6 @@ const initialState: IPriceDataState = {
 };
 
 const priceData = (state = initialState, action: IPriceDataAction): IPriceDataState => {
-    console.log(action);
     switch (action.type) {
         case FETCH_PRICE_DATA:
             return {
@@ -17,7 +16,7 @@ const priceData = (state = initialState, action: IPriceDataAction): IPriceDataSt
         case PRICE_DATA_LOADED:
             return {
                 ...state,
-                data: action.data,
+                data: action?.data || [],
                 status: APIStatusEnum.SUCCESS,
             };
         default:

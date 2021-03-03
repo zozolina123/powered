@@ -8,7 +8,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { changeWeek } from '../../redux/actions/dateActions';
-import { RootState } from '../../redux/reducers';
+import { RootState } from '../wrappers/ReduxWrapper';
 // import { useDispatch } from 'react-redux';
 
 interface Props {
