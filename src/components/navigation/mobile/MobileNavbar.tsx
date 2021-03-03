@@ -38,7 +38,7 @@ export default function MobileNavbar({
                             alignItems: 'center',
                         }}
                     >
-                        <Link onClick={() => setMobileOpen(false)} to={RoutesArray.Home.route} className={classes.link}>
+                        <Link onClick={() => setMobileOpen(false)} to={RoutesArray.home.route} className={classes.link}>
                             <FlashOnIcon style={{ fontSize: '2.125rem' }} />
                             PowerEd
                         </Link>

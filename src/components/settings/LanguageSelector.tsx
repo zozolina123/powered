@@ -15,13 +15,13 @@ function LanguageSelector(props: WrappedComponentProps) {
                         key={locale}
                         value={locale}
                         control={<Radio color="primary" />}
-                        label={intl.formatMessage({ id: locale })}
+                        label={intl.formatMessage({ id: 'Language.' + locale })}
                     />
                 ));
                 return (
                     <FormControl component="fieldset">
                         <FormLabel component="legend">
-                            <FormattedMessage id="Language" />
+                            <FormattedMessage id="Page.language" />
                         </FormLabel>
                         <RadioGroup
                             aria-label="gender"
