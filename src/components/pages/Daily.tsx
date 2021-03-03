@@ -5,12 +5,13 @@ import Box from '@material-ui/core/Box/Box';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import ConsumpionDataAPI from '../../api/ConsumpionDataAPI';
 import DatePicker from '../datePickers/DatePicker';
 import { DimProvider, withContext } from '../utils/DimContext';
 import DocumentTitle from '../utils/DocumentTitle';
 import { RootState } from '../wrappers/ReduxWrapper';
 import Chart from './Chart';
-import { fetchDailyData } from './consumptionDataSlice';
+import { dailyDataLoaded, fetchDailyData } from './consumptionDataSlice';
 
 function Daily(): React.ReactElement {
     const [data, setData] = useState({} as number[]);
@@ -21,7 +22,8 @@ function Daily(): React.ReactElement {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        date && dispatch(fetchDailyData(date));
+        dispatch(fetchDailyData());
+        ConsumpionDataAPI.fetchDailyConsumptionData(date).then((res) => dispatch(dailyDataLoaded(res)));
     }, [date]);
 
     useEffect(() => {

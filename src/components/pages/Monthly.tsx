@@ -5,13 +5,13 @@ import Box from '@material-ui/core/Box/Box';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { monthsArray } from '../../api/ConsumpionDataAPI';
+import ConsumpionDataAPI, { monthsArray } from '../../api/ConsumpionDataAPI';
 import MonthPicker from '../datePickers/MonthPicker';
 import { DimProvider, withContext } from '../utils/DimContext';
 import DocumentTitle from '../utils/DocumentTitle';
 import { RootState } from '../wrappers/ReduxWrapper';
 import Chart from './Chart';
-import { fetchMonthlyData } from './consumptionDataSlice';
+import { fetchMonthlyData, monthlyDataLoaded } from './consumptionDataSlice';
 
 function Monthly(): React.ReactElement {
     const [data, setData] = useState({} as number[]);
@@ -28,7 +28,8 @@ function Monthly(): React.ReactElement {
         dateClone.setDate(1);
         dateClone.setHours(0, 0, 0, 0);
         setDate(dateClone);
-        dispatch(fetchMonthlyData(month));
+        dispatch(fetchMonthlyData());
+        ConsumpionDataAPI.fetchMonthlyConsumptionData(month).then((res) => dispatch(monthlyDataLoaded(res)));
     }, [month]);
 
     useEffect(() => {

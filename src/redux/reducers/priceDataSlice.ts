@@ -1,6 +1,5 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-import PriceDataAPI from '../../api/PriceDataAPI';
 import { APIStatusEnum, IPrice, IPriceDataState } from '../ApiInterfaces';
 
 const initialState: IPriceDataState = {
@@ -8,24 +7,18 @@ const initialState: IPriceDataState = {
     data: [] as IPrice[],
 };
 
-export const fetchPriceData = createAsyncThunk('priceData/fetchPriceData', async () => {
-    return await PriceDataAPI.fetchPriceData();
-});
-
 const priceDataSlice = createSlice({
     name: 'priceData',
     initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-        builder
-            .addCase(fetchPriceData.fulfilled, (state, action) => {
-                state.status = APIStatusEnum.SUCCESS;
-                state.data = action.payload.data;
-            })
-            .addCase(fetchPriceData.pending, (state) => {
-                state.status = APIStatusEnum.LOADING;
-            });
+    reducers: {
+        fetchPriceData: (state) => {
+            state.status = APIStatusEnum.LOADING;
+        },
+        priceDataLoaded: (state, action) => {
+            state.status = APIStatusEnum.SUCCESS;
+            state.data = action.payload.data;
+        },
     },
 });
-
+export const { fetchPriceData, priceDataLoaded } = priceDataSlice.actions;
 export default priceDataSlice.reducer;

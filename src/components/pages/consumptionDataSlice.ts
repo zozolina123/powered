@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-import ConsumpionDataAPI, { DayName, HourName, MonthName, weekArray } from '../../api/ConsumpionDataAPI';
+import { DayName, HourName, MonthName, weekArray } from '../../api/ConsumpionDataAPI';
 import { APIStatusEnum } from '../../redux/ApiInterfaces';
 import { RootState } from '../wrappers/ReduxWrapper';
 
@@ -58,59 +58,41 @@ const initialState: ConsumptionDataState = {
     },
 };
 
-export const fetchDailyData = createAsyncThunk('consumptionData/fetchDailyData', async (date: Date) => {
-    return await ConsumpionDataAPI.fetchDailyConsumptionData(date);
-});
-
-export const fetchWeeklyData = createAsyncThunk('consumptionData/fetchWeeklyData', async (date: Date) => {
-    return await ConsumpionDataAPI.fetchWeeklyConsumptionData(date);
-});
-
-export const fetchMonthlyData = createAsyncThunk('consumptionData/fetchMonthlyData', async (month: MonthName) => {
-    return await ConsumpionDataAPI.fetchMonthlyConsumptionData(month);
-});
-
-export const fetchOverviewData = createAsyncThunk('consumptionData/fetchOverviewData', async () => {
-    return await ConsumpionDataAPI.fetchOverviewConsumptionData();
-});
-
 const consumptionDataSlice = createSlice({
     name: 'consumptionData',
     initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-        builder
-            .addCase(fetchDailyData.fulfilled, (state, action) => {
-                state.dailyData.status = APIStatusEnum.SUCCESS;
-                state.dailyData.data = action.payload.data;
-            })
-            .addCase(fetchDailyData.pending, (state) => {
-                state.dailyData.status = APIStatusEnum.LOADING;
-            })
-            .addCase(fetchWeeklyData.fulfilled, (state, action) => {
-                state.weeklyData.status = APIStatusEnum.SUCCESS;
-                state.weeklyData.data = mapObjectToArray(action.payload.data);
-            })
-            .addCase(fetchWeeklyData.pending, (state) => {
-                state.weeklyData.status = APIStatusEnum.LOADING;
-            })
-            .addCase(fetchMonthlyData.fulfilled, (state, action) => {
-                state.monthlyData.status = APIStatusEnum.SUCCESS;
-                state.monthlyData.data = mapObjectToArray(action.payload.data);
-            })
-            .addCase(fetchMonthlyData.pending, (state) => {
-                state.monthlyData.status = APIStatusEnum.LOADING;
-            })
-            .addCase(fetchOverviewData.fulfilled, (state, action) => {
-                const data = mapOverviewObjectToArray(action.payload);
-                state.overviewData.status = APIStatusEnum.SUCCESS;
-                state.overviewData.data.day = data.hourArray;
-                state.overviewData.data.week = data.dayArray;
-                state.overviewData.data.month = data.monthArray;
-            })
-            .addCase(fetchOverviewData.pending, (state) => {
-                state.overviewData.status = APIStatusEnum.LOADING;
-            });
+    reducers: {
+        fetchDailyData: (state) => {
+            state.dailyData.status = APIStatusEnum.LOADING;
+        },
+        dailyDataLoaded: (state, action) => {
+            state.dailyData.status = APIStatusEnum.SUCCESS;
+            state.dailyData.data = action.payload.data;
+        },
+        fetchWeeklyData: (state) => {
+            state.weeklyData.status = APIStatusEnum.LOADING;
+        },
+        weeklyDataLoaded: (state, action) => {
+            state.weeklyData.status = APIStatusEnum.SUCCESS;
+            state.weeklyData.data = mapObjectToArray(action.payload.data);
+        },
+        fetchMonthlyData: (state) => {
+            state.weeklyData.status = APIStatusEnum.LOADING;
+        },
+        monthlyDataLoaded: (state, action) => {
+            state.monthlyData.status = APIStatusEnum.SUCCESS;
+            state.monthlyData.data = mapObjectToArray(action.payload.data);
+        },
+        fetchOverviewData: (state) => {
+            state.overviewData.status = APIStatusEnum.LOADING;
+        },
+        overviewDataLoaded: (state, action) => {
+            const data = mapOverviewObjectToArray(action.payload);
+            state.overviewData.status = APIStatusEnum.SUCCESS;
+            state.overviewData.data.day = data.hourArray;
+            state.overviewData.data.week = data.dayArray;
+            state.overviewData.data.month = data.monthArray;
+        },
     },
 });
 
@@ -140,4 +122,14 @@ export function mapObjectToArray(obj: { [key: string]: number[] }): number[] {
 
 export const selectConsumptionData = (state: RootState) => state.consumptionData;
 
+export const {
+    fetchDailyData,
+    dailyDataLoaded,
+    fetchWeeklyData,
+    weeklyDataLoaded,
+    fetchMonthlyData,
+    monthlyDataLoaded,
+    fetchOverviewData,
+    overviewDataLoaded,
+} = consumptionDataSlice.actions;
 export default consumptionDataSlice.reducer;
