@@ -6,7 +6,8 @@ export type DayName = typeof weekArray[number];
 
 export const dayArray: string[] = [];
 for (let i = 0; i < 24; i++) {
-    dayArray.push('0' + i + ':00');
+    const prefix = i < 10 ? '0' : '';
+    dayArray.push(prefix + i + ':00');
 }
 
 export type HourName = typeof dayArray[number];

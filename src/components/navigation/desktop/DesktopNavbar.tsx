@@ -36,7 +36,7 @@ export default function DesktopNavbar({
                             alignItems: 'center',
                         }}
                     >
-                        <Link to={RoutesArray.Home.route} className={classes.link}>
+                        <Link to={RoutesArray.home.route} className={classes.link}>
                             <FlashOnIcon fontSize="inherit" />
                             PowerEd
                         </Link>

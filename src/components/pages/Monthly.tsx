@@ -6,7 +6,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ConsumpionDataAPI, { monthsArray } from '../../api/ConsumpionDataAPI';
+import Card from '../datePickers/ConsumptionCard';
 import MonthPicker from '../datePickers/MonthPicker';
+import OverviewCard from '../datePickers/OverviewCard';
 import { DimProvider, withContext } from '../utils/DimContext';
 import DocumentTitle from '../utils/DocumentTitle';
 import { RootState } from '../wrappers/ReduxWrapper';
@@ -14,7 +16,7 @@ import Chart from './Chart';
 import { fetchMonthlyData, monthlyDataLoaded } from './consumptionDataSlice';
 
 function Monthly(): React.ReactElement {
-    const [data, setData] = useState({} as number[]);
+    const [data, setData] = useState<number[]>([]);
     const [date, setDate] = useState(new Date());
     const state = useSelector((state: RootState) => state);
     const month = state.date.month;
@@ -47,10 +49,16 @@ function Monthly(): React.ReactElement {
                             <Chart data={data} date={date} type="month" />
                         </DimProvider>
                     </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Card data={data} />
+                    </Grid>
                     <Grid item xs={12} md={8}>
                         <DimProvider>
                             <Chart data={chartData || []} date={date} type="month" chartType={'BarChart'} />
                         </DimProvider>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <OverviewCard data={chartData || []} type="month" />
                     </Grid>
                 </Grid>
             </Box>

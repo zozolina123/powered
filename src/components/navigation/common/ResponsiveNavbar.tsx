@@ -75,7 +75,7 @@ export default function ResponsiveNavbar(props: { window?: () => Window }): Reac
                         </IconButton>
                     )}
                     <Typography variant="h6" noWrap>
-                        <FormattedMessage id={titleId} />
+                        <FormattedMessage id={'Page.' + titleId} />
                     </Typography>
                 </Toolbar>
             </AppBar>
