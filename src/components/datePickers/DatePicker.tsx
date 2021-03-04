@@ -4,8 +4,8 @@ import { KeyboardDatePicker } from '@material-ui/pickers';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { changeDate } from '../../redux/actions/dateActions';
-import { RootState } from '../../redux/reducers';
+import { RootState } from '../wrappers/ReduxWrapper';
+import { changeDate } from './dateSlice';
 
 interface Props {
     onlyPrevDays?: boolean;

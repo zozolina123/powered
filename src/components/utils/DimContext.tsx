@@ -3,6 +3,11 @@ import ResizeObserver from 'resize-observer-polyfill';
 
 const ReactDims = React.createContext<DOMRect>({} as DOMRect);
 
+export interface DimInterface {
+    width: number;
+    height: number;
+}
+
 interface Props {
     children: React.ReactElement<any>;
 }

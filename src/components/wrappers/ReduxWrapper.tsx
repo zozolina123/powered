@@ -1,17 +1,25 @@
+import { configureStore } from '@reduxjs/toolkit';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { applyMiddleware, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunkMiddleware from 'redux-thunk';
 
-import rootReducer from '../../redux/reducers/index';
+import priceDataReducer from '../../redux/reducers/priceDataSlice';
+import dateReducer from '../datePickers/dateSlice';
+import consumptionDataReducer from '../pages/consumptionDataSlice';
 
 interface Props {
     children: React.ReactElement;
 }
 
-export default function ReduxWrapper({ children }: Props): React.ReactElement {
-    const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+const store = configureStore({
+    reducer: {
+        date: dateReducer,
+        consumptionData: consumptionDataReducer,
+        priceData: priceDataReducer,
+    },
+});
 
+export type RootState = ReturnType<typeof store.getState>;
+
+export default function ReduxWrapper({ children }: Props): React.ReactElement {
     return <Provider store={store}>{children}</Provider>;
 }

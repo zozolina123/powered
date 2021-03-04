@@ -5,25 +5,27 @@ import Box from '@material-ui/core/Box/Box';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchData } from '../../redux/actions/consumptionDataActions';
-import { RootState } from '../../redux/reducers';
-import Card from '../common/ConsumptionCard';
-import DatePicker from '../common/DatePicker';
-import OverviewCard from '../common/OverviewCard';
+import ConsumpionDataAPI from '../../api/ConsumpionDataAPI';
+import Card from '../datePickers/ConsumptionCard';
+import DatePicker from '../datePickers/DatePicker';
+import OverviewCard from '../datePickers/OverviewCard';
 import { DimProvider, withContext } from '../utils/DimContext';
 import DocumentTitle from '../utils/DocumentTitle';
+import { RootState } from '../wrappers/ReduxWrapper';
 import Chart from './Chart';
+import { dailyDataLoaded, fetchDailyData } from './consumptionDataSlice';
 
 function Daily(): React.ReactElement {
     const [data, setData] = useState<number[]>([]);
     const state = useSelector((state: RootState) => state);
     const date = state.date.day;
-    const fetchedData = state.consumptionData.dailyData;
-    const chartData = state.consumptionData.overviewData.hourArray;
+    const fetchedData = state.consumptionData.dailyData.data;
+    const chartData = state.consumptionData.overviewData.data.day;
     const dispatch = useDispatch();
 
     useEffect(() => {
-        date && dispatch(fetchData(date));
+        dispatch(fetchDailyData());
+        ConsumpionDataAPI.fetchDailyConsumptionData(date).then((res) => dispatch(dailyDataLoaded(res)));
     }, [date]);
 
     useEffect(() => {

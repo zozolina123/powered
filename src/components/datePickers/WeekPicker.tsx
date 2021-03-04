@@ -7,8 +7,8 @@ import { endOfWeek, isSameDay, isWithinInterval, startOfWeek } from 'date-fns/fp
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { changeWeek } from '../../redux/actions/dateActions';
-import { RootState } from '../../redux/reducers';
+import { RootState } from '../wrappers/ReduxWrapper';
+import { changeWeek } from './dateSlice';
 // import { useDispatch } from 'react-redux';
 
 interface Props {

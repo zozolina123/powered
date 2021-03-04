@@ -61,8 +61,14 @@ export enum APIStatusEnum {
 export interface IConsumptionDataAction {
     type: string;
     status?: APIStatusEnum;
-    data: number[];
+    data?: number[];
     date?: Date;
+}
+
+export interface IPriceDataAction {
+    type: string;
+    status?: APIStatusEnum;
+    data?: IPrice[];
 }
 
 export interface IConsumptionDataState {
@@ -73,8 +79,29 @@ export interface IConsumptionDataState {
     overviewData?: any;
 }
 
+export interface IPriceDataState {
+    status: APIStatusEnum;
+    data: IPrice[];
+}
+
 export interface IDateState {
     day: Date;
     month: MonthTypes;
     week: Date;
+}
+
+export interface IPrice {
+    id: number;
+    furnizor: string;
+    energieRegenerabila: number;
+    valCompFix: number;
+    tarifTransport: number;
+    tarifSistem: number;
+    tarifDistributie: number;
+    pretCertificateVerzi: number;
+    taxaCogenerare: number;
+    pretEnergie: number;
+    tarifFinal: number;
+    acciza: number;
+    tva: number;
 }

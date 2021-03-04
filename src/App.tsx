@@ -7,15 +7,15 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import Daily from './components/home/Daily';
-import Home from './components/home/Home';
-import Monthly from './components/home/Monthly';
-import Weekly from './components/home/Weekly';
 import ResponsiveNavbar from './components/navigation/common/ResponsiveNavbar';
+import Daily from './components/pages/Daily';
+import Home from './components/pages/Home';
+import Monthly from './components/pages/Monthly';
+import Weekly from './components/pages/Weekly';
 import Settings from './components/settings/Settings';
 import { DimProvider } from './components/utils/DimContext';
+import DataWrapper from './components/wrappers/DataWrapper';
 import IntlProvider from './components/wrappers/IntlWrapper';
-import OverviewDataWrapper from './components/wrappers/OverviewDataWrapper';
 import ReduxWrapper from './components/wrappers/ReduxWrapper';
 import CustomThemeProvider from './components/wrappers/ThemeWrapper';
 
@@ -43,7 +43,7 @@ const App: React.FC = () => {
             <ReduxWrapper>
                 <IntlProvider>
                     <CustomThemeProvider>
-                        <OverviewDataWrapper>
+                        <DataWrapper>
                             <DimProvider>
                                 <Router>
                                     <Helmet titleTemplate="%s | PowerEd" defaultTitle="PowerEd" />
@@ -72,7 +72,7 @@ const App: React.FC = () => {
                                     </div>
                                 </Router>
                             </DimProvider>
-                        </OverviewDataWrapper>
+                        </DataWrapper>
                     </CustomThemeProvider>
                 </IntlProvider>
             </ReduxWrapper>
