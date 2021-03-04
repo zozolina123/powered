@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import ConsumpionDataAPI from '../../api/ConsumpionDataAPI';
 import PriceDataAPI from '../../api/PriceDataAPI';
 import { fetchPriceData, priceDataLoaded } from '../../redux/reducers/priceDataSlice';
-import { fetchOverviewData, overviewDataLoaded } from '../pages/consumptionDataSlice';
+import { fetchOverviewData, overviewDataLoaded } from '../pages/consumption/consumptionDataSlice';
 
 interface Props {
     children: JSX.Element;

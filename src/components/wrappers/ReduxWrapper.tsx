@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import priceDataReducer from '../../redux/reducers/priceDataSlice';
 import dateReducer from '../datePickers/dateSlice';
-import consumptionDataReducer from '../pages/consumptionDataSlice';
+import consumptionDataReducer from '../pages/consumption/consumptionDataSlice';
 
 interface Props {
     children: React.ReactElement;

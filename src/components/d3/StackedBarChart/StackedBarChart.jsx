@@ -1,17 +1,23 @@
 import { select } from 'd3-selection';
+import { stack } from 'd3-shape';
 
 import Rectangles from './Rectangles';
 import { Axes, Dimensions, Scales } from './utilities';
 
-class BarChart {
-    constructor(domNodeCurrent, type) {
+class StackedBarChart {
+    constructor(domNodeCurrent) {
         this.svg = select(domNodeCurrent).append('svg');
         this.svg.attr('width', '100%').attr('height', '100%');
-        this.type = type;
     }
 
     init = (data, dims) => {
-        this.data = data;
+        const propertiesToFilter = ['furnizor', 'id', 'energieRegenerabila', 'tarifFinal', 'tva'];
+        const smallData = data.slice(0, 3);
+        const dataKeys = Object.keys(smallData[0]).filter((key) => !propertiesToFilter.includes(key));
+        const series = stack()
+            .keys(dataKeys)(smallData)
+            .map((d) => (d.forEach((v) => (v.key = d.key)), d));
+        console.log(series);
         this.dims = new Dimensions(dims);
         this.chart = this.svg.append('g');
         this.chart.attr('transform', `translate(${this.dims.margin.left}, ${this.dims.margin.top})`);
@@ -36,4 +42,4 @@ class BarChart {
     };
 }
 
-export default BarChart;
+export default StackedBarChart;

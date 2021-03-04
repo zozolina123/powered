@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import BarChart from '../d3/BarChart/BarChart';
-import LineChart from '../d3/LineChart/LineChart';
-import { withContext } from '../utils/DimContext';
-import { DimInterface } from '../utils/UtilIntefaces';
+import BarChart from '../../d3/BarChart/BarChart';
+import LineChart from '../../d3/LineChart/LineChart';
+import { withContext } from '../../utils/DimContext';
+import { DimInterface } from '../../utils/UtilIntefaces';
 
 interface Props {
     dims: DimInterface;

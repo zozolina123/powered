@@ -1,4 +1,4 @@
-import API from './API';
+import API from './api';
 import { dailyConsumptionURL } from './routes';
 
 export const weekArray = ['Sunday', 'Monday', 'Thursday', 'Wednesday', 'Tuesday', 'Friday', 'Saturday'] as const;

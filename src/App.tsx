@@ -7,11 +7,13 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import { RoutesArray } from './components/navigation/common/NavigationUtils';
 import ResponsiveNavbar from './components/navigation/common/ResponsiveNavbar';
-import Daily from './components/pages/Daily';
-import Home from './components/pages/Home';
-import Monthly from './components/pages/Monthly';
-import Weekly from './components/pages/Weekly';
+import Daily from './components/pages/consumption/Daily';
+import Home from './components/pages/consumption/Home';
+import Monthly from './components/pages/consumption/Monthly';
+import Weekly from './components/pages/consumption/Weekly';
+import Price from './components/pages/price/Price';
 import Settings from './components/settings/Settings';
 import { DimProvider } from './components/utils/DimContext';
 import DataWrapper from './components/wrappers/DataWrapper';
@@ -52,19 +54,22 @@ const App: React.FC = () => {
                                         <main className={classes.content}>
                                             <div className={classes.toolbar} />
                                             <Switch>
-                                                <Route path="/daily">
+                                                <Route path={RoutesArray.daily.route}>
                                                     <Daily />
                                                 </Route>
-                                                <Route path="/monthly">
+                                                <Route path={RoutesArray.monthly.route}>
                                                     <Monthly />
                                                 </Route>
-                                                <Route path="/weekly">
+                                                <Route path={RoutesArray.weekly.route}>
                                                     <Weekly />
                                                 </Route>
-                                                <Route path="/settings">
+                                                <Route path={RoutesArray.settings.route}>
                                                     <Settings />
                                                 </Route>
-                                                <Route path="/">
+                                                <Route path={RoutesArray.priceComparison.route}>
+                                                    <Price />
+                                                </Route>
+                                                <Route path={RoutesArray.home.route}>
                                                     <Home />
                                                 </Route>
                                             </Switch>

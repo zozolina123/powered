@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { DayName, HourName, MonthName, weekArray } from '../../api/ConsumpionDataAPI';
-import { APIStatusEnum } from '../../redux/ApiInterfaces';
-import { RootState } from '../wrappers/ReduxWrapper';
+import { DayName, HourName, MonthName, weekArray } from '../../../api/ConsumpionDataAPI';
+import { APIStatusEnum } from '../../../redux/ApiInterfaces';
+import { RootState } from '../../wrappers/ReduxWrapper';
 
 type TData = {
     status: APIStatusEnum;

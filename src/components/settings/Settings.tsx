@@ -17,7 +17,7 @@ export default function Settings(): React.ReactElement {
     const classes = useStyles();
     return (
         <div>
-            <DocumentTitle title="Settings" />
+            <DocumentTitle title="Page.settings" />
             <div>
                 <ThemeSelector />
             </div>

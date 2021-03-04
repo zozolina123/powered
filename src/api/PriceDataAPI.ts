@@ -1,9 +1,9 @@
-import API from './API';
+import api from './api';
 import { priceDataURL } from './routes';
 
 class PriceDataAPI {
     fetchPriceData = async () => {
-        const data = await API.get(priceDataURL);
+        const data = await api.get(priceDataURL);
         return data;
     };
 }
