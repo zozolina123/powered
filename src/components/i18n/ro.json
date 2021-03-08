@@ -19,5 +19,6 @@
     "OverviewCard.averageConsumption": "Consum Mediu: ",
     "OverviewCard.highestConsumption": "Consum Maxim: ",
     "OverviewCard.lowestConsumption": "Consum Minim: ",
-    "OverviewCard.loHiComparison": "Comparare Minim si Maxim: "
+    "OverviewCard.loHiComparison": "Comparare Minim si Maxim: ",
+    "Price.chartInfo": "Pret pentru un consum de 300kW fara TVA"
 }

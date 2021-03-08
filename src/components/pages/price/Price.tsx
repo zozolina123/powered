@@ -1,10 +1,12 @@
 import 'date-fns';
 
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box/Box';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 
+import { IPrice } from '../../../redux/ApiInterfaces';
 import { DimProvider, withContext } from '../../utils/DimContext';
 import DocumentTitle from '../../utils/DocumentTitle';
 import { RootState } from '../../wrappers/ReduxWrapper';
@@ -14,14 +16,63 @@ function Price(): React.ReactElement {
     const state = useSelector((state: RootState) => state);
     const priceData = state.priceData.data;
 
+    const getCompactPriceData = (priceData: IPrice[]): IPrice[] => {
+        const groupedData = {};
+        priceData.forEach((offer) => {
+            if (groupedData[offer.furnizor]) {
+                groupedData[offer.furnizor].push(offer);
+                return;
+            }
+            groupedData[offer.furnizor] = [offer];
+        });
+
+        const compactData: IPrice[] = [];
+        Object.keys(groupedData).forEach((furnizor) => {
+            const bestOffer = groupedData[furnizor].reduce((offer: IPrice, bestOffer: IPrice) =>
+                offer.tarifFinal < bestOffer.tarifFinal ? offer : bestOffer,
+            );
+            compactData.push(bestOffer);
+        });
+        return compactData;
+    };
+
+    const mapPriceToUsage = (priceData: IPrice[], consumption: number): IPrice[] => {
+        const priceProperties = [
+            'acciza',
+            'pretCertificateVerzi',
+            'pretEnergie',
+            'tarifDistributie',
+            'tarifSistem',
+            'tarifTransport',
+            'taxaCogenerare',
+            'tarifFinal',
+        ];
+        const priceToCost = priceData.map((offer) => {
+            const offerClone = { ...offer };
+            priceProperties.forEach((property) => {
+                offerClone[property] = offerClone[property] * consumption;
+            });
+            offerClone['valCompFix'] = offerClone['valCompFix'] * 30;
+            return offerClone;
+        });
+        console.log(priceToCost);
+        return priceToCost;
+    };
+
+    const compactPriceData = useMemo(() => getCompactPriceData(priceData), [priceData]);
+    const usageData = useMemo(() => mapPriceToUsage(compactPriceData, 300), [compactPriceData]);
+
     return (
         <DimProvider>
             <Box component="div">
                 <DocumentTitle title="Page.priceComparison" />
                 <Grid container>
+                    <Typography variant="h6" component="h6">
+                        <FormattedMessage id={'Price.chartInfo'} />
+                    </Typography>
                     <Grid item xs={12}>
                         <DimProvider>
-                            <PriceChart data={priceData} />
+                            <PriceChart data={usageData} />
                         </DimProvider>
                     </Grid>
                 </Grid>

@@ -34,7 +34,7 @@ function Chart({ data, dims }: Props) {
         vizInitialized && canvas && canvas.updateData(data);
     }, [data]);
 
-    return <div ref={domNode} style={{ display: 'grid', height: '300px' }} />;
+    return <div ref={domNode} style={{ display: 'grid', height: '400px' }} />;
 }
 
 export default withContext(Chart);

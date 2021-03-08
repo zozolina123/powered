@@ -19,5 +19,6 @@
     "OverviewCard.averageConsumption": "Average Consumption: ",
     "OverviewCard.highestConsumption": "Highest Consumption: ",
     "OverviewCard.lowestConsumption": "Lowest Consumption: ",
-    "OverviewCard.loHiComparison": "Low to High Comparison: "
+    "OverviewCard.loHiComparison": "Low to High Comparison: ",
+    "Price.chartInfo": "Price for 300kW consumption without VAT"
 }

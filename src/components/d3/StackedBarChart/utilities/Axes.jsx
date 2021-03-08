@@ -14,6 +14,7 @@ class Axes {
             .append('g')
             .attr('transform', `translate(0, ${dims.innerHeight})`)
             .call(this.xAxisBottom);
+
         this.yAxisLeftG = parent.append('g').attr('class', 'grid').call(this.yAxisLeft);
     };
 

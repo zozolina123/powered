@@ -7,7 +7,6 @@ class Scales {
     }
 
     setScales = (data, dims, type, unit) => {
-        console.log(unit);
         this.xScale = scaleBand().range([0, dims.innerWidth]).domain(unit).padding(0.3);
         this.yScale = scaleLinear()
             .range([dims.innerHeight, 0])
