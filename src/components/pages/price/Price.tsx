@@ -3,7 +3,7 @@ import 'date-fns';
 import { Grid, Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box/Box';
 import React, { useMemo } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 
 import { IPrice } from '../../../redux/ApiInterfaces';
@@ -15,6 +15,10 @@ import PriceChart from './PriceChart';
 function Price(): React.ReactElement {
     const state = useSelector((state: RootState) => state);
     const priceData = state.priceData.data;
+    const intl = useIntl();
+    const labelText = {
+        yLabel: intl.formatMessage({ id: 'Chart.price' }),
+    };
 
     const getCompactPriceData = (priceData: IPrice[]): IPrice[] => {
         const groupedData = {};
@@ -55,7 +59,6 @@ function Price(): React.ReactElement {
             offerClone['valCompFix'] = offerClone['valCompFix'] * 30;
             return offerClone;
         });
-        console.log(priceToCost);
         return priceToCost;
     };
 
@@ -67,12 +70,12 @@ function Price(): React.ReactElement {
             <Box component="div">
                 <DocumentTitle title="Page.priceComparison" />
                 <Grid container>
-                    <Typography variant="h6" component="h6">
+                    <Typography>
                         <FormattedMessage id={'Price.chartInfo'} />
                     </Typography>
                     <Grid item xs={12}>
                         <DimProvider>
-                            <PriceChart data={usageData} />
+                            <PriceChart data={usageData} labelText={labelText} />
                         </DimProvider>
                     </Grid>
                 </Grid>

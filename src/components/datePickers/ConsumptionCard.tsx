@@ -41,8 +41,6 @@ export default function DetailsCard(props: Props): React.ReactElement {
     const { data } = props;
     const peakValue = useMemo(() => getMax(data), [data]);
     const averageValue = useMemo(() => getAverage(data), [data]);
-    //# TODO: need to get function for compare average
-    const comparedToAverage = 10;
     const totalCost = useMemo(() => getTotalCost(data, 0.05), [data]);
     const totalConsumption = useMemo(() => getTotal(data), [data]);
 
@@ -57,9 +55,6 @@ export default function DetailsCard(props: Props): React.ReactElement {
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
                     {formatMessage({ id: 'ConsumptionCard.averageValue' }) + averageValue + ' kW'}
-                </Typography>
-                <Typography className={classes.pos} color="textSecondary">
-                    {formatMessage({ id: 'ConsumptionCard.comparedToAverage' }) + comparedToAverage + ' %'}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
                     {formatMessage({ id: 'ConsumptionCard.totalCost' }) + totalCost + ' lei'}

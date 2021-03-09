@@ -3,6 +3,7 @@ import 'date-fns';
 import { Grid } from '@material-ui/core';
 import Box from '@material-ui/core/Box/Box';
 import React, { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ConsumpionDataAPI, { monthsArray } from '../../../api/ConsumpionDataAPI';
@@ -23,6 +24,16 @@ function Monthly(): React.ReactElement {
     const fetchedData = state.consumptionData.monthlyData.data;
     const chartData = state.consumptionData.overviewData.data.month;
     const dispatch = useDispatch();
+    const intl = useIntl();
+    const labelTextLine = {
+        xLabel: intl.formatMessage({ id: 'Chart.date' }),
+        yLabel: intl.formatMessage({ id: 'Chart.consumptionKW' }),
+    };
+
+    const labelTextBar = {
+        xLabel: intl.formatMessage({ id: 'Chart.month' }),
+        yLabel: intl.formatMessage({ id: 'Chart.consumptionKW' }),
+    };
 
     useEffect(() => {
         const dateClone = new Date(date.valueOf());
@@ -46,7 +57,13 @@ function Monthly(): React.ReactElement {
                 <Grid container>
                     <Grid item xs={12} md={8}>
                         <DimProvider>
-                            <Chart data={data} date={date} type="month" />
+                            <Chart
+                                data={data}
+                                date={date}
+                                type="month"
+                                labelText={labelTextLine}
+                                locale={intl.locale}
+                            />
                         </DimProvider>
                     </Grid>
                     <Grid item xs={12} md={4}>
@@ -54,7 +71,14 @@ function Monthly(): React.ReactElement {
                     </Grid>
                     <Grid item xs={12} md={8}>
                         <DimProvider>
-                            <Chart data={chartData || []} date={date} type="month" chartType={'BarChart'} />
+                            <Chart
+                                data={chartData || []}
+                                date={date}
+                                type="month"
+                                chartType={'BarChart'}
+                                labelText={labelTextBar}
+                                locale={intl.locale}
+                            />
                         </DimProvider>
                     </Grid>
                     <Grid item xs={12} md={4}>

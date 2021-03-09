@@ -1,8 +1,6 @@
 import './App.scss';
 
-import DateFnsUtils from '@date-io/date-fns';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -17,6 +15,7 @@ import Price from './components/pages/price/Price';
 import Settings from './components/settings/Settings';
 import { DimProvider } from './components/utils/DimContext';
 import DataWrapper from './components/wrappers/DataWrapper';
+import DateUtilProvider from './components/wrappers/DateUtilProvider';
 import IntlProvider from './components/wrappers/IntlWrapper';
 import ReduxWrapper from './components/wrappers/ReduxWrapper';
 import CustomThemeProvider from './components/wrappers/ThemeWrapper';
@@ -41,9 +40,9 @@ const App: React.FC = () => {
     const classes = useStyles();
 
     return (
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <ReduxWrapper>
-                <IntlProvider>
+        <ReduxWrapper>
+            <IntlProvider>
+                <DateUtilProvider>
                     <CustomThemeProvider>
                         <DataWrapper>
                             <DimProvider>
@@ -79,9 +78,9 @@ const App: React.FC = () => {
                             </DimProvider>
                         </DataWrapper>
                     </CustomThemeProvider>
-                </IntlProvider>
-            </ReduxWrapper>
-        </MuiPickersUtilsProvider>
+                </DateUtilProvider>
+            </IntlProvider>
+        </ReduxWrapper>
     );
 };
 

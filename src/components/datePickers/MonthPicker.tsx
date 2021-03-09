@@ -1,6 +1,7 @@
 import Grid from '@material-ui/core/Grid';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import React, { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { monthsArray } from '../../api/ConsumpionDataAPI';
@@ -15,9 +16,10 @@ export default function MonthPicker(): React.ReactElement {
     const [selectedDate, setSelectedDate] = useState(todayDate);
     const month = useSelector((state: RootState) => state.date.month);
     const dispatch = useDispatch();
+    const intl = useIntl();
 
     const formatWeekSelectLabel = () => {
-        return month;
+        return intl.locale === 'en' ? month : intl.formatMessage({ id: 'Luna.' + month });
     };
 
     useEffect(() => {
@@ -44,7 +46,6 @@ export default function MonthPicker(): React.ReactElement {
                 labelFunc={formatWeekSelectLabel}
                 margin="normal"
                 id="date-picker-inline"
-                label="Date picker inline"
                 value={selectedDate}
                 onChange={handleMonthChange}
                 KeyboardButtonProps={{

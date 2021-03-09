@@ -8,15 +8,18 @@ import { DimInterface } from '../../utils/UtilIntefaces';
 interface Props {
     dims: DimInterface;
     data: IPrice[];
+    labelText: {
+        yLabel: string;
+    };
 }
 
-function Chart({ data, dims }: Props) {
+function Chart({ data, dims, labelText }: Props) {
     const domNode = useRef(null);
     const [canvas, createCanvas] = useState<StackedBarChart>();
     const [vizInitialized, setVizInitialized] = useState(false);
 
     useEffect(() => {
-        createCanvas(new StackedBarChart(domNode.current));
+        createCanvas(new StackedBarChart(domNode.current, labelText));
     }, []);
 
     useEffect(() => {
@@ -34,7 +37,7 @@ function Chart({ data, dims }: Props) {
         vizInitialized && canvas && canvas.updateData(data);
     }, [data]);
 
-    return <div ref={domNode} style={{ display: 'grid', height: '400px' }} />;
+    return <div ref={domNode} style={{ display: 'grid', height: '520px' }} />;
 }
 
 export default withContext(Chart);

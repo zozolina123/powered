@@ -3,6 +3,7 @@ import 'date-fns';
 import { Grid } from '@material-ui/core';
 import Box from '@material-ui/core/Box/Box';
 import React, { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ConsumpionDataAPI from '../../../api/ConsumpionDataAPI';
@@ -21,6 +22,15 @@ function Daily(): React.ReactElement {
     const date = state.date.day;
     const fetchedData = state.consumptionData.dailyData.data;
     const chartData = state.consumptionData.overviewData.data.day;
+    const intl = useIntl();
+    const labelTextLine = {
+        xLabel: intl.formatMessage({ id: 'Chart.hour' }),
+        yLabel: intl.formatMessage({ id: 'Chart.consumptionKW' }),
+    };
+    const labelTextBar = {
+        xLabel: intl.formatMessage({ id: 'Chart.hour' }),
+        yLabel: intl.formatMessage({ id: 'Chart.day' }),
+    };
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -40,7 +50,7 @@ function Daily(): React.ReactElement {
                 <Grid container>
                     <Grid item xs={12} md={8}>
                         <DimProvider>
-                            <Chart data={data} date={date} />
+                            <Chart labelText={labelTextLine} data={data} date={date} locale={intl.locale} />
                         </DimProvider>
                     </Grid>
                     <Grid item xs={12} md={4}>
@@ -48,7 +58,14 @@ function Daily(): React.ReactElement {
                     </Grid>
                     <Grid item xs={12} md={8}>
                         <DimProvider>
-                            <Chart data={chartData || []} date={date} type="day" chartType={'BarChart'} />
+                            <Chart
+                                labelText={labelTextBar}
+                                data={chartData || []}
+                                date={date}
+                                type="day"
+                                chartType={'BarChart'}
+                                locale={intl.locale}
+                            />
                         </DimProvider>
                     </Grid>
                     <Grid item xs={12} md={4}>

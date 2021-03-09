@@ -45,6 +45,7 @@ class Rectangles {
             .enter()
             .append('rect')
             .attr('class', 'bar')
+            .attr('fill', 'currentColor')
             .attr('x', (g, i) => scales.xScale(days[i]))
             .attr('y', (dataVal) => scales.yScale(dataVal))
             .attr('height', (dataVal) => dims.innerHeight - scales.yScale(dataVal))

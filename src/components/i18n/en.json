@@ -20,5 +20,11 @@
     "OverviewCard.highestConsumption": "Highest Consumption: ",
     "OverviewCard.lowestConsumption": "Lowest Consumption: ",
     "OverviewCard.loHiComparison": "Low to High Comparison: ",
-    "Price.chartInfo": "Price for 300kW consumption without VAT"
+    "Price.chartInfo": "Price for 300kW consumption without VAT",
+    "Chart.price": "Price [RON]",
+    "Chart.consumptionKW": "Consumption [kW]",
+    "Chart.date": "Date",
+    "Chart.hour": "Hour",
+    "Chart.day": "Day",
+    "Chart.month": "Month"
 }

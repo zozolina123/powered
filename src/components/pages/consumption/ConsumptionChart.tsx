@@ -11,16 +11,23 @@ interface Props {
     date: Date;
     type: 'day' | 'month' | 'week';
     chartType: 'LineChart' | 'BarChart';
+    labelText: {
+        xLabel: string;
+        yLabel: string;
+    };
+    locale: 'ro' | 'en';
 }
 
-function Chart({ dims, data, date, type = 'day', chartType = 'LineChart' }: Props) {
+function Chart({ dims, data, date, type = 'day', chartType = 'LineChart', labelText, locale }: Props) {
     const domNode = useRef(null);
     const [canvas, createCanvas] = useState({} as BarChart | LineChart);
     const [vizInitialized, setVizInitialized] = useState(false);
 
     useEffect(() => {
         createCanvas(() =>
-            chartType == 'LineChart' ? new LineChart(domNode.current, type) : new BarChart(domNode.current, type),
+            chartType == 'LineChart'
+                ? new LineChart(domNode.current, type, labelText, locale)
+                : new BarChart(domNode.current, type, labelText, locale),
         );
     }, []);
 

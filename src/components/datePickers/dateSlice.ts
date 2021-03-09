@@ -1,3 +1,4 @@
+import DateFnsUtils from '@date-io/date-fns';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { MonthName } from '../../api/ConsumpionDataAPI';
@@ -5,11 +6,12 @@ import { IDateState, isOfTypeMonth } from '../../redux/ApiInterfaces';
 
 const todayDate = new Date();
 const monthName = todayDate.toLocaleString('default', { month: 'long' });
+const DateUtil = new DateFnsUtils();
 
 const initialState: IDateState = {
     day: todayDate,
     month: isOfTypeMonth(monthName) ? monthName : 'January',
-    week: todayDate,
+    week: DateUtil.addDays(todayDate, -7),
 };
 
 const dateSlice = createSlice({

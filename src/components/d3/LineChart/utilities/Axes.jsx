@@ -1,9 +1,13 @@
 import { axisBottom, axisLeft } from 'd3-axis';
-import { timeFormat } from 'd3-time-format';
+import { timeFormat, timeFormatDefaultLocale } from 'd3-time-format';
+
+import { enLocale, roLocale } from '../../../../utils/intlHelpers';
 
 class Axes {
-    constructor(parent, scales, dims, type) {
+    constructor(parent, scales, dims, type, locale) {
         this.type = type;
+        this.parent = parent;
+        const localeTimeFormat = locale == 'en' ? timeFormatDefaultLocale(enLocale) : timeFormatDefaultLocale(roLocale);
         this.createAxes(parent, scales, dims, type);
     }
 

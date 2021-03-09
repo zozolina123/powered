@@ -7,6 +7,7 @@ import { useIntl } from 'react-intl';
 
 import { dayArray, monthsArray, weekArray } from '../../api/ConsumpionDataAPI';
 import { getAverage, getLoHiComparison, getMaxIndex, getMinIndex } from '../../utils/consumptionHelpers';
+import { enLocale, roLocale } from '../../utils/intlHelpers';
 
 interface Props {
     data: number[];
@@ -43,11 +44,22 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+const typeToLocaleType = {
+    day: 'hour',
+    month: 'months',
+    week: 'days',
+};
+
 export default function OverviewCard(props: Props): React.ReactElement {
     const classes = useStyles();
-    const { formatMessage } = useIntl();
+    const { formatMessage, locale } = useIntl();
     const { data, type } = props;
-    const timeArray = arrayTypes[type];
+    const localeType = typeToLocaleType[type];
+    const getTimeName = (locale: string) => {
+        if (localeType == 'hour') return dayArray;
+        if (locale == 'en') return enLocale[localeType];
+        if (locale == 'ro') return roLocale[localeType];
+    };
     const averageConsumption = useMemo(() => getAverage(data), [data]);
     const highestConsumptionTime = useMemo(() => getMaxIndex(data), [data]);
     const lowestConsumptionTime = useMemo(() => getMinIndex(data), [data]);
@@ -63,10 +75,12 @@ export default function OverviewCard(props: Props): React.ReactElement {
                     {formatMessage({ id: 'OverviewCard.averageConsumption' }) + averageConsumption + ' kW'}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    {formatMessage({ id: 'OverviewCard.highestConsumption' }) + timeArray[highestConsumptionTime]}
+                    {formatMessage({ id: 'OverviewCard.highestConsumption' }) +
+                        getTimeName(locale)[highestConsumptionTime]}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    {formatMessage({ id: 'OverviewCard.lowestConsumption' }) + timeArray[lowestConsumptionTime]}
+                    {formatMessage({ id: 'OverviewCard.lowestConsumption' }) +
+                        getTimeName(locale)[lowestConsumptionTime]}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
                     {formatMessage({ id: 'OverviewCard.loHiComparison' }) + loHiComparison + '%'}

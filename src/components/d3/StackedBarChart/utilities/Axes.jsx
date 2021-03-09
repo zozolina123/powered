@@ -9,11 +9,12 @@ class Axes {
 
     createAxes = (parent, scales, dims) => {
         this.scaleAxes(scales, dims);
-
         this.xAxisBottomG = parent
             .append('g')
             .attr('transform', `translate(0, ${dims.innerHeight})`)
             .call(this.xAxisBottom);
+
+        parent.selectAll('.tick text').attr('transform', 'rotate(30)').style('text-anchor', 'start');
 
         this.yAxisLeftG = parent.append('g').attr('class', 'grid').call(this.yAxisLeft);
     };

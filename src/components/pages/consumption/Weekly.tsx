@@ -3,6 +3,7 @@ import 'date-fns';
 import { Grid } from '@material-ui/core';
 import Box from '@material-ui/core/Box/Box';
 import React, { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ConsumpionDataAPI from '../../../api/ConsumpionDataAPI';
@@ -22,6 +23,16 @@ function Weekly(): React.ReactElement {
     const fetchedData = state.consumptionData.weeklyData.data;
     const chartData = state.consumptionData.overviewData.data.week;
     const dispatch = useDispatch();
+    const intl = useIntl();
+    const labelTextLine = {
+        xLabel: intl.formatMessage({ id: 'Chart.date' }),
+        yLabel: intl.formatMessage({ id: 'Chart.consumptionKW' }),
+    };
+
+    const labelTextBar = {
+        xLabel: intl.formatMessage({ id: 'Chart.day' }),
+        yLabel: intl.formatMessage({ id: 'Chart.consumptionKW' }),
+    };
 
     useEffect(() => {
         dispatch(fetchWeeklyData());
@@ -41,7 +52,13 @@ function Weekly(): React.ReactElement {
                 <Grid container>
                     <Grid item xs={12} md={8}>
                         <DimProvider>
-                            <Chart type={'week'} data={data} date={date} />
+                            <Chart
+                                type={'week'}
+                                data={data}
+                                date={date}
+                                labelText={labelTextLine}
+                                locale={intl.locale}
+                            />
                         </DimProvider>
                     </Grid>
                     <Grid item xs={12} md={4}>
@@ -49,7 +66,14 @@ function Weekly(): React.ReactElement {
                     </Grid>
                     <Grid item xs={12} md={8}>
                         <DimProvider>
-                            <Chart data={chartData || []} date={date} type="week" chartType={'BarChart'} />
+                            <Chart
+                                data={chartData || []}
+                                date={date}
+                                type="week"
+                                chartType={'BarChart'}
+                                labelText={labelTextBar}
+                                locale={intl.locale}
+                            />
                         </DimProvider>
                     </Grid>
                     <Grid item xs={12} md={4}>

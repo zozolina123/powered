@@ -6,7 +6,7 @@ class Dimensions {
     }
 
     setMargin = () => {
-        this.margin = { top: 20, left: 30, bottom: 120, right: 30 };
+        this.margin = { top: 170, left: 40, bottom: 100, right: 30 };
     };
 
     setDims = (dims) => {

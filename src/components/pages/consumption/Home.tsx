@@ -3,6 +3,7 @@ import 'date-fns';
 import { Grid } from '@material-ui/core';
 import Box from '@material-ui/core/Box/Box';
 import React, { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ConsumpionDataAPI from '../../../api/ConsumpionDataAPI';
@@ -20,6 +21,11 @@ function Home(): React.ReactElement {
     date.setMinutes(0, 0, 0);
     const fetchedData = state.consumptionData.dailyData.data;
     const dispatch = useDispatch();
+    const intl = useIntl();
+    const labelText = {
+        xLabel: intl.formatMessage({ id: 'Chart.hour' }),
+        yLabel: intl.formatMessage({ id: 'Chart.consumptionKW' }),
+    };
 
     useEffect(() => {
         dispatch(fetchDailyData());
@@ -37,7 +43,7 @@ function Home(): React.ReactElement {
                 <Grid container>
                     <Grid item xs={12} md={8}>
                         <DimProvider>
-                            <Chart data={data} date={date} />
+                            <Chart data={data} date={date} labelText={labelText} locale={intl.locale} />
                         </DimProvider>
                     </Grid>
                     <Grid item xs={12} md={4}>
